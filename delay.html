@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #delayTimeButton {
+    position: relative;
+    height: 200px;
+    /*border-radius: 5px;*/ 
+    background: #ccc;
+    outline: none;
+    -webkit-appearance: slider-vertical;
+    }
+
+    #timeDelayView {
+        font-size: 300%;
+
+    }
+
+</style>
+<body>
+
+    <div class="slider-wrapper">
+        <input type="range" min="0" max="1000" id="delayTimeButton"> 
+       
+    </div>
+    
+    <datalist id="tickmarksecond">
+        <option value="0" label="hola"> </option>
+        <option value="100">   </option>
+        <option value="200">   </option>
+        <option value="300">   </option>
+        <option value="400"></option>
+        <option value="500"></option>
+        <option value="600"></option>
+        <option value="700">   </option>
+        <option value="800">   </option>
+        <option value="900">   </option>
+           
+    </datalist>    
+    <output id = "timeDelayView" name="delaysec" for="timeDelayButton" >38 </output>
+</body>
+<script> 
+
+    var input = document.getElementById('delayTimeButton');
+    var output = document.getElementById('timeDelayView');
+        output.innerHTML = input.value ; 
+        input.oninput = function() {
+            output.innerHTML = this.value;
+            //send value delay ! 
+       }
+</script>
+
+</html>
