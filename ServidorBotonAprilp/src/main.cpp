@@ -38,16 +38,13 @@ void setup() {
 }
 
 void loop() {
-  //activate delay using webPage -- default none 
   server.handleClient();
-
 }
 
 
 void mainPage() {
   String s = MAIN_PAGE; //Read HTML contents
   server.send(200, "text/html", s); //Send web page
-  Serial.println("volver_atras") ; 
 }
 
 void configDelayClockClient(){
@@ -55,14 +52,15 @@ void configDelayClockClient(){
   server.send(200, "text/html", s); //Send web page
 }
 
-void valorDelay(){
+void valorDelay()
+{
   String recibido = server.arg("plain") ; 
-  if (recibido=="true"){
-     isDelayOn = true ;
-     Serial.println("true") ; 
-  }else if(recibido=="false"){
-     isDelayOn = false ;
-      Serial.println("false") ; 
+  if (recibido=="true")
+  {
+    isDelayOn = true ;
+  }else if(recibido=="false")
+  {
+    isDelayOn = false ;
   }
   server.send(200,"text/html",recibido) ; 
 
