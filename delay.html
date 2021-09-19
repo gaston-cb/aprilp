@@ -22,7 +22,7 @@
       font-size: 200%;  
 	}
 </style>
-<body>
+<body onload="delaySelect()"> 
     <div class="slider-wrapper">
         <input type="range" min="0" max="1000" id="delayTimeButton">  
     </div>
@@ -39,6 +39,10 @@
             output.innerHTML = this.value;
             //send value delay ! 
        }
+       function delaySelect(){
+            alert("delay false") ; 
+       }
+    
 </script>
 
 </html>
