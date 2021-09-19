@@ -24,10 +24,10 @@
 </style>
 <body onload="delaySelect()"> 
     <div class="slider-wrapper">
-        <input type="range" min="0" max="1000" id="delayTimeButton">  
+        <input type="range" min="0" max="1000" id="delayTimeButton" value = "500">  
     </div>
     <label for ="timeDelayView" id="sizeview">
-    segundos:<output id = "timeDelayView" name="delaysec" for="timeDelayButton"> 38  </output> 
+    segundos:<output id = "timeDelayView" name="delaysec" for="timeDelayButton"> 500  </output> 
 	</label>
 </body>
 <script> 
@@ -37,10 +37,11 @@
         output.innerHTML = input.value ; 
         input.oninput = function() {
             output.innerHTML = this.value;
-            //send value delay ! 
+            //send value delay -- websockets   
        }
        function delaySelect(){
-            alert("delay false") ; 
+           
+        
        }
     
 </script>

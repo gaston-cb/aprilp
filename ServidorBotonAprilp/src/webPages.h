@@ -9,9 +9,24 @@ const char MAIN_PAGE[] = R"=====(
     <style>
     </style>
 </head>
-<body>   
+<body onload="selectDelay();"> 
     <button type="range"  onclick = "location.href = 'delay.html'" > rango delay</button>   
 </body>
+<script>
+    function selectDelay(){
+        const Http = new XMLHttpRequest();
+        const url='http://192.168.4.1/del';
+        const data = false ; 
+        Http.onreadystatechange = function () {
+            if (this.readyState != 4) return;
+            if (this.status == 200) {
+            }
+        }
+        Http.open("POST", url,true);
+        Http.setRequestHeader('Content-Type', 'text/html');
+        Http.send(data);    
+    }
+</script>
 </html>)=====" ;  
 
 const char delayHMTL[] =R"=====( 
@@ -38,7 +53,7 @@ const char delayHMTL[] =R"=====(
       font-size: 200%;  
 	}
 </style>
-<body>
+<body onload="selectDelay()";>
     <div class="slider-wrapper">
         <input type="range" min="0" max="1000" id="delayTimeButton">  
     </div>
@@ -53,6 +68,19 @@ const char delayHMTL[] =R"=====(
         input.oninput = function() {
             output.innerHTML = this.value;
        }
+    function selectDelay(){
+        const Http = new XMLHttpRequest();
+        const url='http://192.168.4.1/del';
+        const data = true ; 
+        Http.onreadystatechange = function () {
+            if (this.readyState != 4) return;
+            if (this.status == 200) {
+            }
+        }
+        Http.open("POST", url,true);
+        Http.setRequestHeader('Content-Type', 'text/html');
+        Http.send(data);    
+    }
 </script>
 </html>)=====" ; 
 

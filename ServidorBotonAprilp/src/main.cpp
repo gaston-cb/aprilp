@@ -14,7 +14,7 @@
 
 void mainPage()  ; 
 void configDelayClockClient() ; 
-
+void valorDelay() ; 
 
 
 ESP8266WebServer server(80); 
@@ -32,7 +32,7 @@ void setup() {
   createWiFiNet();
   server.on("/", mainPage);
   server.on("/delay.html",  configDelayClockClient);
-  
+  server.on("/del", HTTP_POST , valorDelay);
   Serial.println("wificreated") ; 
   server.begin();
 }
@@ -51,8 +51,19 @@ void mainPage() {
 }
 
 void configDelayClockClient(){
-  String s = delayHMTL; //Read HTML contents
+  String s = delayHMTL;             //Read HTML contents
   server.send(200, "text/html", s); //Send web page
-  Serial.println("delay") ; 
+}
+
+void valorDelay(){
+  String recibido = server.arg("plain") ; 
+  if (recibido=="true"){
+     isDelayOn = true ;
+     Serial.println("true") ; 
+  }else if(recibido=="false"){
+     isDelayOn = false ;
+      Serial.println("false") ; 
+  }
+  server.send(200,"text/html",recibido) ; 
 
 }

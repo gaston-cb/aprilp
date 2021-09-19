@@ -14,9 +14,16 @@
 </body>
 <script>
     function selectDelay(){
-        alert("delay true") ; 
+        const Http = new XMLHttpRequest();
+        const url='http://192.168.4.1/';
+        const data = true ; 
+        Http.onreadystatechange = function () {
+            if (this.readyState != 4) return;
+            if (this.status == 200) {
+            }
+        }
+        Http.open("POST", url,true);
+        Http.send(data);    
     }
-
-
 </script>
 </html>
