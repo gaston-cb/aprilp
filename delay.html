@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<style>
+<style type="text/css">
     #delayTimeButton {
     position: relative;
     height: 200px;
@@ -15,34 +15,20 @@
     outline: none;
     -webkit-appearance: slider-vertical;
     }
-
     #timeDelayView {
-        font-size: 300%;
-
+        font-size: 90%;
     }
-
+	#sizeview{
+      font-size: 200%;  
+	}
 </style>
 <body>
-
     <div class="slider-wrapper">
-        <input type="range" min="0" max="1000" id="delayTimeButton"> 
-       
+        <input type="range" min="0" max="1000" id="delayTimeButton">  
     </div>
-    
-    <datalist id="tickmarksecond">
-        <option value="0" label="hola"> </option>
-        <option value="100">   </option>
-        <option value="200">   </option>
-        <option value="300">   </option>
-        <option value="400"></option>
-        <option value="500"></option>
-        <option value="600"></option>
-        <option value="700">   </option>
-        <option value="800">   </option>
-        <option value="900">   </option>
-           
-    </datalist>    
-    <output id = "timeDelayView" name="delaysec" for="timeDelayButton" >38 </output>
+    <label for ="timeDelayView" id="sizeview">
+    segundos:<output id = "timeDelayView" name="delaysec" for="timeDelayButton"> 38  </output> 
+	</label>
 </body>
 <script> 
 
