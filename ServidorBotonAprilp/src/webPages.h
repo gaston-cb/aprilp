@@ -1,0 +1,59 @@
+const char MAIN_PAGE[] = R"=====(
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>   
+    <button type="range"  onclick = "location.href = 'delay.html'" > rango delay</button>   
+</body>
+</html>)=====" ;  
+
+const char delayHMTL[] =R"=====( 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    #delayTimeButton {
+    position: relative;
+    height: 200px;
+    background: #ccc;
+    outline: none;
+    -webkit-appearance: slider-vertical;
+    }
+    #timeDelayView {
+        font-size: 90%;
+    }
+	#sizeview{
+      font-size: 200%;  
+	}
+</style>
+<body>
+    <div class="slider-wrapper">
+        <input type="range" min="0" max="1000" id="delayTimeButton">  
+    </div>
+    <label for ="timeDelayView" id="sizeview">
+    segundos:<output id = "timeDelayView" name="delaysec" for="timeDelayButton"> 38  </output> 
+	</label>
+</body>
+<script> 
+    var input = document.getElementById('delayTimeButton');
+    var output = document.getElementById('timeDelayView');
+        output.innerHTML = input.value ; 
+        input.oninput = function() {
+            output.innerHTML = this.value;
+       }
+</script>
+</html>)=====" ; 
+
+
