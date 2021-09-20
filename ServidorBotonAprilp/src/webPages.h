@@ -55,18 +55,24 @@ const char delayHMTL[] =R"=====(
 </style>
 <body onload="selectDelay()";>
     <div class="slider-wrapper">
-        <input type="range" min="0" max="1000" id="delayTimeButton">  
+        <input type="range" min="0" max="180" id="delayTimeButton" >  
     </div>
     <label for ="timeDelayView" id="sizeview">
     segundos:<output id = "timeDelayView" name="delaysec" for="timeDelayButton"> 38  </output> 
 	</label>
 </body>
 <script> 
+    var connection = new WebSocket('ws://'+'192.168.4.1'+':81/', ['arduino']); 
+    connection.onopen = function () 
+	{};
+	connection.onerror = function (error) { console.log('WebSocket Error ', error);};
+	connection.onmessage = function (e)   { console.log('Server: ', e.data);};
     var input = document.getElementById('delayTimeButton');
     var output = document.getElementById('timeDelayView');
         output.innerHTML = input.value ; 
         input.oninput = function() {
             output.innerHTML = this.value;
+            connection.send(this.value) ; 
        }
     function selectDelay(){
         const Http = new XMLHttpRequest();
@@ -81,6 +87,8 @@ const char delayHMTL[] =R"=====(
         Http.setRequestHeader('Content-Type', 'text/html');
         Http.send(data);    
     }
+   
+
 </script>
 </html>)=====" ; 
 
