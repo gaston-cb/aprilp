@@ -16,6 +16,8 @@
 extern "C" {
   #include "user_interface.h"
 }
+#define ADDRESS_MAC_ESP "BC:DD:C2"  
+
 
 void mainPage()  ; 
 void configDelayClockClient() ; 
@@ -30,6 +32,8 @@ WebSocketsServer webSocket = WebSocketsServer(81);  //PUERTO ESTANDAR WS
 clientRegister senddataClientSockets{false ,0U , 0 }; 
 
 
+
+char last_mac[18];  
 
 
 bool sendingDataClientSocket = false; 
@@ -64,9 +68,9 @@ void loop() {
   if (waitDHCP==true){
     delay(2000) ; 
     waitDHCP = false ; 
+    Serial.println(senddataClientSockets.numberClients) ; 
     obtainIPClients() ; 
     senddataClientSockets.numberClients = WiFi.softAPgetStationNum(); 
-//    Serial.println()
   }
 }
 
@@ -126,28 +130,34 @@ void dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length)
     
 
 void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info){
-  char last_mac[18]; 
+
   sprintf(last_mac,"%02X:%02X:%02X:%02X:%02X:%02X", MAC2STR(sta_info.mac));
   Serial.printf("MAC address : %s\n",last_mac);
   Serial.printf("Id : %d\n", sta_info.aid);
+  if (strncmp(last_mac,ADDRESS_MAC_ESP,sizeof(ADDRESS_MAC_ESP))==0)
+  {
+    Serial.println("hay esp") ; 
+  }else Serial.println("no hay esp") ; 
   waitDHCP = true ; 
   
 } 
 
 
 void obtainIPClients(){
-  String cb ;
-  char last_mac[18];  
-  char* mac_device  = &last_mac[0] ; 
+  IPAddress ipclient ; 
   struct station_info *station_list = wifi_softap_get_station_info();
-  while (station_list != NULL) {
+  while (station_list != NULL) 
+  {
     char station_mac[18] = {0}; sprintf(station_mac, "%02X:%02X:%02X:%02X:%02X:%02X", MAC2STR(station_list->bssid));
-    String station_ip = IPAddress((&station_list->ip)->addr).toString();
-    Serial.println("dentro de while") ; Serial.print("ip: ") ; 
-    Serial.println(station_ip) ; 
+    ipclient = IPAddress((&station_list->ip)->addr) ; 
+    Serial.print(ipclient[0])   ; Serial.print('.') ; 
+    Serial.print(ipclient[1])   ; Serial.print('.') ; 
+    Serial.print(ipclient[2])   ; Serial.print('.') ; 
+    Serial.println(ipclient[3]) ; 
+    if (strcmp(last_mac,station_mac)){
+      Serial.println("repetido: ") ; 
+    }  
     station_list = STAILQ_NEXT(station_list, next);
   }
   wifi_softap_free_station_info();
-  cb = "DHCP not ready or bad MAC address";
-  Serial.println(cb) ;  
 }
