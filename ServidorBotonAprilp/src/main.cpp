@@ -33,12 +33,10 @@ clientRegister senddataClientSockets{false ,0U , 0 };
 
 
 
-char last_mac[18];  
-
-
+char last_mac[18] ;  
 bool sendingDataClientSocket = false; 
 bool isDelayOn = false ;      //retraso de señal 
-bool waitDHCP = false  ; 
+bool waitDHCP  = false ; 
 
 
 
@@ -55,6 +53,8 @@ void setup() {
   server.begin();
 }
 
+unsigned long t0 = 0 ; 
+
 void loop() {
   webSocket.loop();
   server.handleClient();
@@ -63,7 +63,11 @@ void loop() {
     sendingDataClientSocket = false;  
     Serial.print("tiempo delay: ") ; Serial.println(senddataClientSockets.timeDelay) ; 
     Serial.print(" isdelay: ") ; Serial.println(senddataClientSockets.isDelay) ; 
-    //send data to client 
+    //send data to clients  
+  }
+  if (millis()-t0>30000){
+    t0 = millis() ; 
+    obtainIPClients() ; 
   }
   if (waitDHCP==true){
     delay(2000) ; 
@@ -132,8 +136,14 @@ void dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length)
 void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info){
 
   sprintf(last_mac,"%02X:%02X:%02X:%02X:%02X:%02X", MAC2STR(sta_info.mac));
-  Serial.printf("MAC address : %s\n",last_mac);
-  Serial.printf("Id : %d\n", sta_info.aid);
+  Serial.print(sta_info.mac[0],HEX) ; Serial.println(':') ;  
+  Serial.print(sta_info.mac[1],HEX) ; Serial.println(':') ; 
+  Serial.print(sta_info.mac[2],HEX) ; Serial.println(':') ; 
+  Serial.print(sta_info.mac[3],HEX) ; Serial.println(':') ; 
+  Serial.print(sta_info.mac[4],HEX) ;Serial.println(':') ; 
+  Serial.println(sta_info.mac[5],HEX) ;  
+   
+  
   if (strncmp(last_mac,ADDRESS_MAC_ESP,sizeof(ADDRESS_MAC_ESP))==0)
   {
     Serial.println("hay esp") ; 
@@ -144,19 +154,23 @@ void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info){
 
 
 void obtainIPClients(){
+  Serial.println("IPS_clientesConectados") ; 
   IPAddress ipclient ; 
   struct station_info *station_list = wifi_softap_get_station_info();
   while (station_list != NULL) 
   {
-    char station_mac[18] = {0}; sprintf(station_mac, "%02X:%02X:%02X:%02X:%02X:%02X", MAC2STR(station_list->bssid));
+    //char station_mac[18] = {0}; sprintf(station_mac, "%02X:%02X:%02X:%02X:%02X:%02X", MAC2STR(station_list->bssid));
+    Serial.print(station_list->bssid[0],HEX) ; Serial.print(':') ; 
+    Serial.print(station_list->bssid[1],HEX) ; Serial.print(':') ; 
+    Serial.print(station_list->bssid[2],HEX) ; Serial.print(':') ; 
+    Serial.print(station_list->bssid[3],HEX) ; Serial.print(':') ; 
+    Serial.print(station_list->bssid[4],HEX) ; Serial.print(':') ; 
+    Serial.println(station_list->bssid[5],HEX) ;  
     ipclient = IPAddress((&station_list->ip)->addr) ; 
     Serial.print(ipclient[0])   ; Serial.print('.') ; 
     Serial.print(ipclient[1])   ; Serial.print('.') ; 
     Serial.print(ipclient[2])   ; Serial.print('.') ; 
     Serial.println(ipclient[3]) ; 
-    if (strcmp(last_mac,station_mac)){
-      Serial.println("repetido: ") ; 
-    }  
     station_list = STAILQ_NEXT(station_list, next);
   }
   wifi_softap_free_station_info();
