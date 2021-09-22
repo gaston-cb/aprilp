@@ -4,7 +4,7 @@ struct clientRegister
 {
     bool isDelay ; 
     unsigned int timeDelay ; 
-    uint8_t numberClients;     
+    unsigned char numEspConnected ; 
     /* format: IPadres - Mac adress */ 
-    uint8_t MAC_Ipclients[4][10] ; //xx. xx . xx . xx + mm:mm:mm:mm:mm:mm  
+    uint8_t MAC_Ipclients[4][4] ;    //xx.xx.xx.xx --- ip clients esp8266 --  
 }; 

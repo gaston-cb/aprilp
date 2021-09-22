@@ -16,8 +16,11 @@
 extern "C" {
   #include "user_interface.h"
 }
-#define ADDRESS_MAC_ESP "BC:DD:C2"  
 
+#define ADDRESS_MAC_ESP_0 0xBCu
+#define ADDRESS_MAC_ESP_1 0xDDu
+#define ADDRESS_MAC_ESP_2 0xC2u  
+#define IP_LOCALHOST {127, 0 , 0 ,1}  
 
 void mainPage()  ; 
 void configDelayClockClient() ; 
@@ -29,7 +32,17 @@ void obtainIPClients() ;
 
 ESP8266WebServer server(80);    // puerto HTTP 
 WebSocketsServer webSocket = WebSocketsServer(81);  //PUERTO ESTANDAR WS 
-clientRegister senddataClientSockets{false ,0U , 0 }; 
+clientRegister senddataClientSockets{
+  false , // isDelay 
+  0U ,    // timeDelay 
+  0, 
+  {
+    IP_LOCALHOST,  
+    IP_LOCALHOST, 
+    IP_LOCALHOST,
+    IP_LOCALHOST
+  } 
+}; 
 
 
 
@@ -61,20 +74,15 @@ void loop() {
   if (sendingDataClientSocket == true)
   {
     sendingDataClientSocket = false;  
+    // ¿hay clientes conectados? 
     Serial.print("tiempo delay: ") ; Serial.println(senddataClientSockets.timeDelay) ; 
     Serial.print(" isdelay: ") ; Serial.println(senddataClientSockets.isDelay) ; 
-    //send data to clients  
+    //send data to clients 
+
   }
   if (millis()-t0>30000){
     t0 = millis() ; 
     obtainIPClients() ; 
-  }
-  if (waitDHCP==true){
-    delay(2000) ; 
-    waitDHCP = false ; 
-    Serial.println(senddataClientSockets.numberClients) ; 
-    obtainIPClients() ; 
-    senddataClientSockets.numberClients = WiFi.softAPgetStationNum(); 
   }
 }
 
@@ -136,19 +144,14 @@ void dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length)
 void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info){
 
   sprintf(last_mac,"%02X:%02X:%02X:%02X:%02X:%02X", MAC2STR(sta_info.mac));
-  Serial.print(sta_info.mac[0],HEX) ; Serial.println(':') ;  
+ /* Serial.print(sta_info.mac[0],HEX) ; Serial.println(':') ;  
   Serial.print(sta_info.mac[1],HEX) ; Serial.println(':') ; 
   Serial.print(sta_info.mac[2],HEX) ; Serial.println(':') ; 
   Serial.print(sta_info.mac[3],HEX) ; Serial.println(':') ; 
   Serial.print(sta_info.mac[4],HEX) ;Serial.println(':') ; 
-  Serial.println(sta_info.mac[5],HEX) ;  
-   
+  Serial.println(sta_info.mac[5],HEX) ;  */ 
+  waitDHCP = true ;  
   
-  if (strncmp(last_mac,ADDRESS_MAC_ESP,sizeof(ADDRESS_MAC_ESP))==0)
-  {
-    Serial.println("hay esp") ; 
-  }else Serial.println("no hay esp") ; 
-  waitDHCP = true ; 
   
 } 
 
@@ -157,21 +160,33 @@ void obtainIPClients(){
   Serial.println("IPS_clientesConectados") ; 
   IPAddress ipclient ; 
   struct station_info *station_list = wifi_softap_get_station_info();
+  if (station_list==NULL){
+    // no hay clientes conectados ! 
+    return ; 
+  }
   while (station_list != NULL) 
   {
-    //char station_mac[18] = {0}; sprintf(station_mac, "%02X:%02X:%02X:%02X:%02X:%02X", MAC2STR(station_list->bssid));
-    Serial.print(station_list->bssid[0],HEX) ; Serial.print(':') ; 
+    // logica de comparación de clientes para enviar datos ! 
+    Serial.print(station_list->bssid[0],HEX) ; Serial.print(':') ; //mac
     Serial.print(station_list->bssid[1],HEX) ; Serial.print(':') ; 
     Serial.print(station_list->bssid[2],HEX) ; Serial.print(':') ; 
     Serial.print(station_list->bssid[3],HEX) ; Serial.print(':') ; 
     Serial.print(station_list->bssid[4],HEX) ; Serial.print(':') ; 
     Serial.println(station_list->bssid[5],HEX) ;  
-    ipclient = IPAddress((&station_list->ip)->addr) ; 
+    ipclient = IPAddress((&station_list->ip)->addr) ; //ip 
     Serial.print(ipclient[0])   ; Serial.print('.') ; 
     Serial.print(ipclient[1])   ; Serial.print('.') ; 
     Serial.print(ipclient[2])   ; Serial.print('.') ; 
     Serial.println(ipclient[3]) ; 
-    station_list = STAILQ_NEXT(station_list, next);
+   
+    if (station_list->bssid[0] == ADDRESS_MAC_ESP_0 && 
+        station_list->bssid[1] == ADDRESS_MAC_ESP_1 && 
+        station_list->bssid[2] == ADDRESS_MAC_ESP_2)
+      {
+        Serial.println("esp_connected! ") ; 
+        // verificar IPS -- GUARDAR IPS     
+      }
+      station_list = STAILQ_NEXT(station_list, next);
   }
   wifi_softap_free_station_info();
 }
