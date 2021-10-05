@@ -22,7 +22,7 @@ void createWiFiNet()
     const char *pass = PASS_SSID_DIRECT_NAME ; 
     WiFi.mode(WIFI_AP);
     //WiFi.softAP(ssid, pass) ;
-    WiFi.softAP(ssid,pass ,1,HIDDEN_WIFI, MAX_CONECTION_AP);
+    WiFi.softAP(ssid,pass,1,HIDDEN_WIFI, MAX_CONECTION_AP);
 }
 
 
@@ -32,8 +32,7 @@ void sendDataClient()
         //send data 
 
     }
-    client.stop() 
-
+    client.stop() ;
 }
 
 

@@ -87,8 +87,6 @@ const char delayHMTL[] =R"=====(
         Http.setRequestHeader('Content-Type', 'text/html');
         Http.send(data);    
     }
-   
-
 </script>
 </html>)=====" ; 
 

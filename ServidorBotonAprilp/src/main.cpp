@@ -120,8 +120,7 @@ void dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length)
   //remote
   switch(type)
   {
-    case WStype_DISCONNECTED:
-      
+    case WStype_DISCONNECTED:    
       break;
     case WStype_CONNECTED: 
       webSocket.sendTXT(num, "Connected");        
