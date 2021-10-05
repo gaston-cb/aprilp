@@ -100,9 +100,11 @@ macAddress = [
   0xFCF5C4
 ] 
 i = 0 
-unordmac = macAddress 
 
-macAddress.sort() ; 
+macAddress.sort() ;  
+file = open('ServidorBotonAprilp/include/macaddress.h','w')
 for el in macAddress: 
-    print(el)  
-    i= i+1   
+    file.write("#define MAC_ADDRESS_ESPRESSIF_"+str(i)+" "+"0x"+str(str(hex(el)).split('0x')[1]).upper()+      '\n') 
+    hexadecimal_number_Str = str(hex(el)).split('0x') ;  
+    print(hexadecimal_number_Str[1])  
+    i = i + 1  
