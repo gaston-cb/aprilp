@@ -8,3 +8,8 @@ struct clientRegister
     /* format: IPadres - Mac adress */ 
     uint8_t MAC_Ipclients[4][4] ;    //xx.xx.xx.xx --- ip clients esp8266 --  
 }; 
+
+
+struct uint24_t{
+    unsigned int data: 24 ; 
+}; 

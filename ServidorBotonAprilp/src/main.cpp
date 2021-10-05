@@ -28,7 +28,7 @@ void valorDelay() ;
 void dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length) ; 
 void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info) ; 
 void obtainIPClients() ; 
-
+int isMacEspressif()   ; 
 
 ESP8266WebServer server(80);    // puerto HTTP 
 WebSocketsServer webSocket = WebSocketsServer(81);  //PUERTO ESTANDAR WS 
@@ -188,4 +188,13 @@ void obtainIPClients(){
       station_list = STAILQ_NEXT(station_list, next);
   }
   wifi_softap_free_station_info();
+}
+
+
+int isMacEspressif(){
+
+  
+
+  return 0x01 ; // oka 
+
 }
