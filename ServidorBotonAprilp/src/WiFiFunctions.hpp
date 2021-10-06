@@ -16,6 +16,15 @@
 WiFiServer wifiServer(PORT_TCP_SOCKET); 
 WiFiClient client; 
 
+ 
+
+
+
+
+
+
+
+
 void createWiFiNet()
 {
     const char *ssid = SSID_WIFI_DIRECT_NAME ;  

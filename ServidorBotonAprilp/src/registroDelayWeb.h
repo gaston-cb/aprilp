@@ -9,7 +9,7 @@ struct clientRegister
     uint8_t MAC_Ipclients[4][4] ;    //xx.xx.xx.xx --- ip clients esp8266 --  
 }; 
 
-
-struct uint24_t{
+// garantizar portabilidad entre arquitecturas !  
+typedef struct {
     unsigned int data: 24 ; 
-}; 
+}uint24_t ; 

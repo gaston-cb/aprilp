@@ -13,13 +13,11 @@
 #include "WiFiFunctions.hpp"
 #include <WebSocketsServer.h>
 #include "registroDelayWeb.h" 
+#include "macaddress.h"
 extern "C" {
   #include "user_interface.h"
 }
-
-#define ADDRESS_MAC_ESP_0 0xBCu
-#define ADDRESS_MAC_ESP_1 0xDDu
-#define ADDRESS_MAC_ESP_2 0xC2u  
+#define NUMBERS_MACS_ESPRESSIF 96 
 #define IP_LOCALHOST {127, 0 , 0 ,1}  
 
 void mainPage()  ; 
@@ -28,7 +26,7 @@ void valorDelay() ;
 void dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length) ; 
 void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info) ; 
 void obtainIPClients() ; 
-int isMacEspressif()   ; 
+int isMacEspressif(uint24_t macsAdress)   ; 
 
 ESP8266WebServer server(80);    // puerto HTTP 
 WebSocketsServer webSocket = WebSocketsServer(81);  //PUERTO ESTANDAR WS 
@@ -43,7 +41,104 @@ clientRegister senddataClientSockets{
     IP_LOCALHOST
   } 
 }; 
-
+const uint24_t macsAddressEspressif[NUMBERS_MACS_ESPRESSIF]{
+MAC_ADDRESS_ESPRESSIF_0, 
+MAC_ADDRESS_ESPRESSIF_1, 
+MAC_ADDRESS_ESPRESSIF_2,
+MAC_ADDRESS_ESPRESSIF_3,
+MAC_ADDRESS_ESPRESSIF_4, 
+MAC_ADDRESS_ESPRESSIF_5,
+MAC_ADDRESS_ESPRESSIF_6,
+MAC_ADDRESS_ESPRESSIF_7,
+MAC_ADDRESS_ESPRESSIF_8,
+MAC_ADDRESS_ESPRESSIF_9 ,
+MAC_ADDRESS_ESPRESSIF_10 ,
+MAC_ADDRESS_ESPRESSIF_11 ,
+MAC_ADDRESS_ESPRESSIF_12 ,
+MAC_ADDRESS_ESPRESSIF_13 ,
+MAC_ADDRESS_ESPRESSIF_14 ,
+MAC_ADDRESS_ESPRESSIF_15 ,
+MAC_ADDRESS_ESPRESSIF_16 ,
+MAC_ADDRESS_ESPRESSIF_17 ,
+MAC_ADDRESS_ESPRESSIF_18 ,
+MAC_ADDRESS_ESPRESSIF_19 ,
+MAC_ADDRESS_ESPRESSIF_20 ,
+MAC_ADDRESS_ESPRESSIF_21 ,
+MAC_ADDRESS_ESPRESSIF_22 ,
+MAC_ADDRESS_ESPRESSIF_23 ,
+MAC_ADDRESS_ESPRESSIF_24 ,
+MAC_ADDRESS_ESPRESSIF_25 ,
+MAC_ADDRESS_ESPRESSIF_26 ,
+MAC_ADDRESS_ESPRESSIF_27 ,
+MAC_ADDRESS_ESPRESSIF_28 ,
+MAC_ADDRESS_ESPRESSIF_29 ,
+MAC_ADDRESS_ESPRESSIF_30 ,
+MAC_ADDRESS_ESPRESSIF_31 ,
+MAC_ADDRESS_ESPRESSIF_32 ,
+MAC_ADDRESS_ESPRESSIF_33 ,
+MAC_ADDRESS_ESPRESSIF_34 ,
+MAC_ADDRESS_ESPRESSIF_35 ,
+MAC_ADDRESS_ESPRESSIF_36 ,
+MAC_ADDRESS_ESPRESSIF_37 ,
+MAC_ADDRESS_ESPRESSIF_38 ,
+MAC_ADDRESS_ESPRESSIF_39 ,
+MAC_ADDRESS_ESPRESSIF_40 ,
+MAC_ADDRESS_ESPRESSIF_41 ,
+MAC_ADDRESS_ESPRESSIF_42 ,
+MAC_ADDRESS_ESPRESSIF_43 ,
+MAC_ADDRESS_ESPRESSIF_44 ,
+MAC_ADDRESS_ESPRESSIF_45 ,
+MAC_ADDRESS_ESPRESSIF_46 ,
+MAC_ADDRESS_ESPRESSIF_47 ,
+ MAC_ADDRESS_ESPRESSIF_48 ,
+ MAC_ADDRESS_ESPRESSIF_49 ,
+ MAC_ADDRESS_ESPRESSIF_50 ,
+ MAC_ADDRESS_ESPRESSIF_51 ,
+ MAC_ADDRESS_ESPRESSIF_52 ,
+ MAC_ADDRESS_ESPRESSIF_53 ,
+ MAC_ADDRESS_ESPRESSIF_54 ,
+ MAC_ADDRESS_ESPRESSIF_55 ,
+ MAC_ADDRESS_ESPRESSIF_56 ,
+ MAC_ADDRESS_ESPRESSIF_57 ,
+ MAC_ADDRESS_ESPRESSIF_58 ,
+ MAC_ADDRESS_ESPRESSIF_59 ,
+ MAC_ADDRESS_ESPRESSIF_60 ,
+ MAC_ADDRESS_ESPRESSIF_61 ,
+ MAC_ADDRESS_ESPRESSIF_62 ,
+ MAC_ADDRESS_ESPRESSIF_63 ,
+ MAC_ADDRESS_ESPRESSIF_64 ,
+ MAC_ADDRESS_ESPRESSIF_65 ,
+ MAC_ADDRESS_ESPRESSIF_66 ,
+ MAC_ADDRESS_ESPRESSIF_67 ,
+ MAC_ADDRESS_ESPRESSIF_68 ,
+ MAC_ADDRESS_ESPRESSIF_69 ,
+ MAC_ADDRESS_ESPRESSIF_70 ,
+ MAC_ADDRESS_ESPRESSIF_71 ,
+ MAC_ADDRESS_ESPRESSIF_72 ,
+ MAC_ADDRESS_ESPRESSIF_73 ,
+ MAC_ADDRESS_ESPRESSIF_74 ,
+ MAC_ADDRESS_ESPRESSIF_75 ,
+ MAC_ADDRESS_ESPRESSIF_76 ,
+ MAC_ADDRESS_ESPRESSIF_77 ,
+ MAC_ADDRESS_ESPRESSIF_78 ,
+ MAC_ADDRESS_ESPRESSIF_79 ,
+ MAC_ADDRESS_ESPRESSIF_80 ,
+ MAC_ADDRESS_ESPRESSIF_81 ,
+ MAC_ADDRESS_ESPRESSIF_82 ,
+ MAC_ADDRESS_ESPRESSIF_83 ,
+ MAC_ADDRESS_ESPRESSIF_84 ,
+ MAC_ADDRESS_ESPRESSIF_85 ,
+ MAC_ADDRESS_ESPRESSIF_86 ,
+ MAC_ADDRESS_ESPRESSIF_87 ,
+ MAC_ADDRESS_ESPRESSIF_88 ,
+ MAC_ADDRESS_ESPRESSIF_89 ,
+ MAC_ADDRESS_ESPRESSIF_90 ,
+ MAC_ADDRESS_ESPRESSIF_91 ,
+ MAC_ADDRESS_ESPRESSIF_92 ,
+ MAC_ADDRESS_ESPRESSIF_93 ,
+ MAC_ADDRESS_ESPRESSIF_94 ,
+ MAC_ADDRESS_ESPRESSIF_95 
+} ; 
 
 
 char last_mac[18] ;  
@@ -64,6 +159,11 @@ void setup() {
   webSocket.begin();
   webSocket.onEvent(dataDelayWeb);
   server.begin();
+  // test busqueda binaria 
+  uint24_t testing = { 0x78E36D} ; 
+  Serial.println(isMacEspressif(testing)) ; 
+
+
 }
 
 unsigned long t0 = 0 ; 
@@ -158,6 +258,7 @@ void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info){
 void obtainIPClients(){
   Serial.println("IPS_clientesConectados") ; 
   IPAddress ipclient ; 
+  uint24_t macaddress_clients ; 
   struct station_info *station_list = wifi_softap_get_station_info();
   if (station_list==NULL){
     // no hay clientes conectados ! 
@@ -172,15 +273,17 @@ void obtainIPClients(){
     Serial.print(station_list->bssid[3],HEX) ; Serial.print(':') ; 
     Serial.print(station_list->bssid[4],HEX) ; Serial.print(':') ; 
     Serial.println(station_list->bssid[5],HEX) ;  
+    macaddress_clients.data =  (station_list->bssid[0])<<16 ;  
+    macaddress_clients.data = (macaddress_clients.data) | (station_list->bssid[1])<<8  ; 
+    macaddress_clients.data = (macaddress_clients.data) | (station_list->bssid[2])  ; 
+    Serial.print("macAdress_str ") ; Serial.println(macaddress_clients.data,HEX) ; 
     ipclient = IPAddress((&station_list->ip)->addr) ; //ip 
     Serial.print(ipclient[0])   ; Serial.print('.') ; 
     Serial.print(ipclient[1])   ; Serial.print('.') ; 
     Serial.print(ipclient[2])   ; Serial.print('.') ; 
     Serial.println(ipclient[3]) ; 
    
-    if (station_list->bssid[0] == ADDRESS_MAC_ESP_0 && 
-        station_list->bssid[1] == ADDRESS_MAC_ESP_1 && 
-        station_list->bssid[2] == ADDRESS_MAC_ESP_2)
+    if (isMacEspressif(macaddress_clients  ))
       {
         Serial.println("esp_connected! ") ; 
         // verificar IPS -- GUARDAR IPS     
@@ -191,10 +294,37 @@ void obtainIPClients(){
 }
 
 
-int isMacEspressif(){
+/*
+ * Busqueda dicotómica 
+ * return -1 : no encontrado 
+ * return  1 : encontrado 
+*/
 
-  
+int isMacEspressif(uint24_t mac_client ){
 
-  return 0x01 ; // oka 
+  int inf = 0 ; 
+  int sup = NUMBERS_MACS_ESPRESSIF  ; 
+  int center  ; 
+  Serial.println("searching! ") ; 
+  if (mac_client.data<MAC_ADDRESS_ESPRESSIF_0 || mac_client.data>MAC_ADDRESS_ESPRESSIF_95){
+    return -1 ; 
+  } 
+  Serial.println("searching2! ") ; 
 
+  while(inf<sup)
+  {
+    center = (inf+sup)/2 ; 
+    Serial.print("center: ") ; Serial.println(center) ; 
+    if(macsAddressEspressif[center].data == mac_client.data)
+    {
+      return 1 ; 
+    }else if(macsAddressEspressif[center].data<mac_client.data)
+    {
+      sup = center + 1 ; 
+    }else {
+      inf = center + 1 ; 
+    }
+  }
+  return -1 ; // is mac espressif -- true 
 }
+
