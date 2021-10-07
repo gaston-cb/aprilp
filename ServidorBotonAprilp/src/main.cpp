@@ -160,9 +160,10 @@ void setup() {
   webSocket.onEvent(dataDelayWeb);
   server.begin();
   // test busqueda binaria 
-  uint24_t testing = { 0x78E36D} ; 
-  Serial.println(isMacEspressif(testing)) ; 
-
+  uint24_t testing = { 0x78E625} ; 
+  int i = isMacEspressif(testing) ; 
+  Serial.println("resultingsearch: ") ; 
+  Serial.println(i) ; 
 
 }
 
@@ -256,7 +257,6 @@ void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info){
 
 
 void obtainIPClients(){
-  Serial.println("IPS_clientesConectados") ; 
   IPAddress ipclient ; 
   uint24_t macaddress_clients ; 
   struct station_info *station_list = wifi_softap_get_station_info();
@@ -283,11 +283,10 @@ void obtainIPClients(){
     Serial.print(ipclient[2])   ; Serial.print('.') ; 
     Serial.println(ipclient[3]) ; 
    
-    if (isMacEspressif(macaddress_clients  ))
-      {
-        Serial.println("esp_connected! ") ; 
-        // verificar IPS -- GUARDAR IPS     
-      }
+    if (isMacEspressif(macaddress_clients)==1) // exist espressif dispositive connected 
+    {
+        //llenar registros con Ips 
+    }
       station_list = STAILQ_NEXT(station_list, next);
   }
   wifi_softap_free_station_info();
@@ -303,26 +302,24 @@ void obtainIPClients(){
 int isMacEspressif(uint24_t mac_client ){
 
   int inf = 0 ; 
-  int sup = NUMBERS_MACS_ESPRESSIF  ; 
+  int sup = NUMBERS_MACS_ESPRESSIF-1  ; //array 0 to NUMBER_MACS_ESPRESSIF-1 
   int center  ; 
-  Serial.println("searching! ") ; 
   if (mac_client.data<MAC_ADDRESS_ESPRESSIF_0 || mac_client.data>MAC_ADDRESS_ESPRESSIF_95){
     return -1 ; 
   } 
-  Serial.println("searching2! ") ; 
 
-  while(inf<sup)
+  while(inf<=sup)
   {
     center = (inf+sup)/2 ; 
-    Serial.print("center: ") ; Serial.println(center) ; 
     if(macsAddressEspressif[center].data == mac_client.data)
     {
+
       return 1 ; 
     }else if(macsAddressEspressif[center].data<mac_client.data)
     {
-      sup = center + 1 ; 
-    }else {
       inf = center + 1 ; 
+    }else {
+      sup = center - 1 ; 
     }
   }
   return -1 ; // is mac espressif -- true 
