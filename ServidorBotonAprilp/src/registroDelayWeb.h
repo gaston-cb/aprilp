@@ -1,3 +1,4 @@
+#define REGISTERS_DELAY 
 
 struct clientRegister
 {

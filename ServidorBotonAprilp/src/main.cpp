@@ -12,7 +12,10 @@
 #include "webPages.h"
 #include "WiFiFunctions.hpp"
 #include <WebSocketsServer.h>
-#include "registroDelayWeb.h" 
+#ifndef REGISTERS_DELAY
+  #define REGISTERS_DELAY
+  #include "registroDelayWeb.h" 
+#endif
 #include "macaddress.h"
 extern "C" {
   #include "user_interface.h"
@@ -273,23 +276,13 @@ void obtainIPClients(){
 
   while (station_list != NULL) 
   {
-    // logica de comparación de clientes para enviar datos ! 
-    Serial.print(station_list->bssid[0],HEX) ; Serial.print(':') ; //mac
-    Serial.print(station_list->bssid[1],HEX) ; Serial.print(':') ; 
-    Serial.print(station_list->bssid[2],HEX) ; Serial.print(':') ; 
-    Serial.print(station_list->bssid[3],HEX) ; Serial.print(':') ; 
-    Serial.print(station_list->bssid[4],HEX) ; Serial.print(':') ; 
-    Serial.println(station_list->bssid[5],HEX) ;  
-    macaddress_clients.data =  (station_list->bssid[0])<<16 ;  
+    // logica de comparación  para enviar datos ! 
+    macaddress_clients.data = (station_list->bssid[0])<<16 ;  
     macaddress_clients.data = (macaddress_clients.data) | (station_list->bssid[1])<<8  ; 
     macaddress_clients.data = (macaddress_clients.data) | (station_list->bssid[2])  ; 
-    Serial.print("macAdress_str ") ; Serial.println(macaddress_clients.data,HEX) ; 
+    
     ipclient = IPAddress((&station_list->ip)->addr) ; //ip 
-    Serial.print(ipclient[0])   ; Serial.print('.') ; 
-    Serial.print(ipclient[1])   ; Serial.print('.') ; 
-    Serial.print(ipclient[2])   ; Serial.print('.') ; 
-    Serial.println(ipclient[3]) ; 
-   
+    
     if (isMacEspressif(macaddress_clients)==1)  //exist espressif dispositive connected 
     {
       senddataClientSockets.Ipclients[index_ip][0] = ipclient[0] ; 
@@ -324,7 +317,6 @@ int isMacEspressif(uint24_t mac_client ){
     center = (inf+sup)/2 ; 
     if(macsAddressEspressif[center].data == mac_client.data)
     {
-
       return 1 ; 
     }else if(macsAddressEspressif[center].data<mac_client.data)
     {

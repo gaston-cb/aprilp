@@ -6,6 +6,12 @@
  * 
 */
 #include <ESP8266WiFi.h>
+#ifndef REGISTERS_DELAY
+  #define REGISTERS_DELAY
+  #include "registroDelayWeb.h" 
+#endif
+
+
 
 #define PORT_TCP_SOCKET 18220 
 #define SSID_WIFI_DIRECT_NAME "APRILP" //your name ssid favourite 
@@ -17,7 +23,7 @@ WiFiServer wifiServer(PORT_TCP_SOCKET);
 WiFiClient client; 
 
  
-
+extern struct clientRegister senddataClientSockets; 
 
 
 
@@ -37,6 +43,21 @@ void createWiFiNet()
 
 void sendDataClient()
 {   
+    int i = 0 ; 
+    int index_ip_address = 0 ;  
+    for (i = 0 ; i<MAX_CONECTION_AP-1;i++){
+        if(senddataClientSockets.Ipclients[i][0]!=127)
+        {
+            Serial.print(senddataClientSockets.Ipclients[i][0]) ; Serial.print(".") ;  
+            Serial.print(senddataClientSockets.Ipclients[i][1]) ; Serial.print(".") ; 
+            Serial.print(senddataClientSockets.Ipclients[i][2]) ; Serial.print(".") ; 
+            Serial.println(senddataClientSockets.Ipclients[i][3]) ; 
+        }
+
+    }
+
+    
+        
     /*
     if (senddataClientSockets.Ipclients[0] != 127 ){
 
@@ -46,6 +67,8 @@ void sendDataClient()
 
     }
     client.stop() ; */ 
+
+
 }
 
 
