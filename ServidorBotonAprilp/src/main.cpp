@@ -174,7 +174,7 @@ void loop() {
   server.handleClient();
   if(digitalRead(GPIO0_ESP01_SERVER)==LOW)
   {
-    while(digitalRead(GPIO0_ESP01_SERVER)==LOW) ; 
+    while(digitalRead(GPIO0_ESP01_SERVER)==LOW){delay(10) ; }   
     obtainIPClients() ; 
     sendDataClient() ; 
 

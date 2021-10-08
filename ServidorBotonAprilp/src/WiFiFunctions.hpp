@@ -44,17 +44,23 @@ void createWiFiNet()
 void sendDataClient()
 {   
     int i = 0 ; 
-    int index_ip_address = 0 ;  
-    for (i = 0 ; i<MAX_CONECTION_AP-1;i++){
+    int index_ip_address = 0 ;
+    String ip ;   
+    for (i = 0 ; i<MAX_CONECTION_AP-1;i++)
+    {
         if(senddataClientSockets.Ipclients[i][0]!=127)
         {
-            Serial.print(senddataClientSockets.Ipclients[i][0]) ; Serial.print(".") ;  
-            Serial.print(senddataClientSockets.Ipclients[i][1]) ; Serial.print(".") ; 
-            Serial.print(senddataClientSockets.Ipclients[i][2]) ; Serial.print(".") ; 
-            Serial.println(senddataClientSockets.Ipclients[i][3]) ; 
-        }
+            ip =  String(senddataClientSockets.Ipclients[i][0]) + "." 
+                + String(senddataClientSockets.Ipclients[i][1]) + "." 
+                + String(senddataClientSockets.Ipclients[i][2]) + "."
+                + String(senddataClientSockets.Ipclients[i][3])  ; 
+            Serial.print("ip: ") ;  Serial.println(ip) ; 
+            /*if (client.connect(ip,PORT_TCP_SOCKET)){
 
+            }*/
+        }
     }
+
 
     
         
