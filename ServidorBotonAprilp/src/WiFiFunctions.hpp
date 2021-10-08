@@ -37,11 +37,15 @@ void createWiFiNet()
 
 void sendDataClient()
 {   
-    if(client.connect("host_1",PORT_TCP_SOCKET)){
+    /*
+    if (senddataClientSockets.Ipclients[0] != 127 ){
+
+    }
+    if(client.connect(,PORT_TCP_SOCKET)){
         //send data 
 
     }
-    client.stop() ;
+    client.stop() ; */ 
 }
 
 

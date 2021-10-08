@@ -19,6 +19,8 @@ extern "C" {
 }
 #define NUMBERS_MACS_ESPRESSIF 96 
 #define IP_LOCALHOST {127, 0 , 0 ,1}  
+#define GPIO0_ESP01_SERVER  0   
+
 
 void mainPage()  ; 
 void configDelayClockClient() ; 
@@ -33,7 +35,6 @@ WebSocketsServer webSocket = WebSocketsServer(81);  //PUERTO ESTANDAR WS
 clientRegister senddataClientSockets{
   false , // isDelay 
   0U ,    // timeDelay 
-  0, 
   {
     IP_LOCALHOST,  
     IP_LOCALHOST, 
@@ -159,11 +160,7 @@ void setup() {
   webSocket.begin();
   webSocket.onEvent(dataDelayWeb);
   server.begin();
-  // test busqueda binaria 
-  uint24_t testing = { 0x78E625} ; 
-  int i = isMacEspressif(testing) ; 
-  Serial.println("resultingsearch: ") ; 
-  Serial.println(i) ; 
+  pinMode(GPIO0_ESP01_SERVER,INPUT) ; 
 
 }
 
@@ -172,6 +169,13 @@ unsigned long t0 = 0 ;
 void loop() {
   webSocket.loop();
   server.handleClient();
+  if(digitalRead(GPIO0_ESP01_SERVER)==LOW)
+  {
+    while(digitalRead(GPIO0_ESP01_SERVER)==LOW) ; 
+    obtainIPClients() ; 
+    sendDataClient() ; 
+
+  }
   if (sendingDataClientSocket == true)
   {
     sendingDataClientSocket = false;  
@@ -257,6 +261,7 @@ void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info){
 
 
 void obtainIPClients(){
+  int index_ip  = 0 ;  
   IPAddress ipclient ; 
   uint24_t macaddress_clients ; 
   struct station_info *station_list = wifi_softap_get_station_info();
@@ -264,6 +269,8 @@ void obtainIPClients(){
     // no hay clientes conectados ! 
     return ; 
   }
+
+
   while (station_list != NULL) 
   {
     // logica de comparación de clientes para enviar datos ! 
@@ -283,9 +290,13 @@ void obtainIPClients(){
     Serial.print(ipclient[2])   ; Serial.print('.') ; 
     Serial.println(ipclient[3]) ; 
    
-    if (isMacEspressif(macaddress_clients)==1) // exist espressif dispositive connected 
+    if (isMacEspressif(macaddress_clients)==1)  //exist espressif dispositive connected 
     {
-        //llenar registros con Ips 
+      senddataClientSockets.Ipclients[index_ip][0] = ipclient[0] ; 
+      senddataClientSockets.Ipclients[index_ip][1] = ipclient[1] ; 
+      senddataClientSockets.Ipclients[index_ip][2] = ipclient[2] ; 
+      senddataClientSockets.Ipclients[index_ip][3] = ipclient[3] ; 
+      index_ip++ ; 
     }
       station_list = STAILQ_NEXT(station_list, next);
   }
