@@ -66,20 +66,6 @@ void sendDataClient()
         }
     }
 
-
-    
-        
-    /*
-    if (senddataClientSockets.Ipclients[0] != 127 ){
-
-    }
-    if(client.connect(,PORT_TCP_SOCKET)){
-        //send data 
-
-    }
-    client.stop() ; */ 
-
-
 }
 
 

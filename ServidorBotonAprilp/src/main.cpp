@@ -33,6 +33,9 @@ void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info) ;
 void obtainIPClients() ; 
 int isMacEspressif(uint24_t macsAdress)   ; 
 
+
+
+unsigned long int  t0 = 0 ; 
 ESP8266WebServer server(80);    // puerto HTTP 
 WebSocketsServer webSocket = WebSocketsServer(81);  //PUERTO ESTANDAR WS 
 clientRegister senddataClientSockets{
@@ -164,12 +167,10 @@ void setup() {
   webSocket.onEvent(dataDelayWeb);
   server.begin();
   pinMode(GPIO0_ESP01_SERVER,INPUT) ; 
-  Serial.print("tam bool") ; Serial.println(sizeof(bool)) ; 
-  Serial.print("tam int") ; Serial.println(sizeof(unsigned int)) ; 
+ 
   
 }
 
-unsigned long t0 = 0 ; 
 
 void loop() {
   webSocket.loop();
@@ -179,15 +180,6 @@ void loop() {
     while(digitalRead(GPIO0_ESP01_SERVER)==LOW){delay(10) ; }   
     obtainIPClients() ; 
     sendDataClient() ; 
-
-  }
-  if (sendingDataClientSocket == true)
-  {
-    sendingDataClientSocket = false;  
-    // ¿hay clientes conectados? 
-    Serial.print("tiempo delay: ") ; Serial.println(senddataClientSockets.timeDelay) ; 
-    Serial.print(" isdelay: ") ; Serial.println(senddataClientSockets.isDelay) ; 
-    //send data to clients 
 
   }
   if (millis()-t0>30000){
@@ -227,7 +219,7 @@ void valorDelay()
 
 void dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length)
 {
-  //remote
+  /* web sockets ! */
   switch(type)
   {
     case WStype_DISCONNECTED:    
@@ -251,7 +243,6 @@ void dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length)
     
 
 void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info){
-
   sprintf(last_mac,"%02X:%02X:%02X:%02X:%02X:%02X", MAC2STR(sta_info.mac));
   waitDHCP = true ;  
 } 
