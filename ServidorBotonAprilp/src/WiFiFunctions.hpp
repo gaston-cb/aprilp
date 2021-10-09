@@ -43,21 +43,26 @@ void createWiFiNet()
 
 void sendDataClient()
 {   
+    const  int tam_buffer = sizeof(bool) + sizeof(unsigned int) + 2  ; 
+    byte buffer_data [tam_buffer] ; 
+    buffer_data[0] = 0xAB ; 
+    buffer_data[tam_buffer-1] = 0xAB ; 
     int i = 0 ; 
-    int index_ip_address = 0 ;
-    String ip ;   
+    IPAddress ip ;   
     for (i = 0 ; i<MAX_CONECTION_AP-1;i++)
     {
+        
         if(senddataClientSockets.Ipclients[i][0]!=127)
         {
-            ip =  String(senddataClientSockets.Ipclients[i][0]) + "." 
-                + String(senddataClientSockets.Ipclients[i][1]) + "." 
-                + String(senddataClientSockets.Ipclients[i][2]) + "."
-                + String(senddataClientSockets.Ipclients[i][3])  ; 
-            Serial.print("ip: ") ;  Serial.println(ip) ; 
-            /*if (client.connect(ip,PORT_TCP_SOCKET)){
-
-            }*/
+            memcpy(&buffer_data[1], (byte *) &senddataClientSockets,sizeof(bool) + sizeof(unsigned int) ) ; 
+            ip= IPAddress (senddataClientSockets.Ipclients[i][0],
+                           senddataClientSockets.Ipclients[i][1], 
+                           senddataClientSockets.Ipclients[i][2],
+                           senddataClientSockets.Ipclients[i][3] ) ; 
+            if (client.connect(ip ,PORT_TCP_SOCKET)){
+                client.write(buffer_data,sizeof(buffer_data)) ;               
+            }
+            client.stop() ; 
         }
     }
 

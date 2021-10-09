@@ -164,7 +164,9 @@ void setup() {
   webSocket.onEvent(dataDelayWeb);
   server.begin();
   pinMode(GPIO0_ESP01_SERVER,INPUT) ; 
-
+  Serial.print("tam bool") ; Serial.println(sizeof(bool)) ; 
+  Serial.print("tam int") ; Serial.println(sizeof(unsigned int)) ; 
+  
 }
 
 unsigned long t0 = 0 ; 
@@ -238,7 +240,7 @@ void dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length)
         senddataClientSockets.timeDelay = int((char) payload[0]-0x30) *100  +  int((char) payload[1]-0x30) *10+ int((char) payload[2]-0x30) ; 
         sendingDataClientSocket = true ; 
       }else if(length==2){
-       senddataClientSockets.timeDelay = int((char) payload[0]-0x30) *10  + int((char) payload[0]-0x30) *10  ;    
+       senddataClientSockets.timeDelay = int((char) payload[0]-0x30) *10  + int((char) payload[0]-0x30)   ;    
        sendingDataClientSocket = true ; 
       }
       break;
@@ -251,15 +253,7 @@ void dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length)
 void newConnectClient(WiFiEventSoftAPModeStationConnected sta_info){
 
   sprintf(last_mac,"%02X:%02X:%02X:%02X:%02X:%02X", MAC2STR(sta_info.mac));
- /* Serial.print(sta_info.mac[0],HEX) ; Serial.println(':') ;  
-  Serial.print(sta_info.mac[1],HEX) ; Serial.println(':') ; 
-  Serial.print(sta_info.mac[2],HEX) ; Serial.println(':') ; 
-  Serial.print(sta_info.mac[3],HEX) ; Serial.println(':') ; 
-  Serial.print(sta_info.mac[4],HEX) ;Serial.println(':') ; 
-  Serial.println(sta_info.mac[5],HEX) ;  */ 
   waitDHCP = true ;  
-  
-  
 } 
 
 
@@ -272,8 +266,6 @@ void obtainIPClients(){
     // no hay clientes conectados ! 
     return ; 
   }
-
-
   while (station_list != NULL) 
   {
     // logica de comparación  para enviar datos ! 
