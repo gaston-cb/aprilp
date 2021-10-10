@@ -31,7 +31,7 @@ void setup()
   ConnectAP()  ; 
   button_server.begin() ; 
   pinMode(GPIO_ESP01_PORT,OUTPUT) ; 
-  digitalWrite(GPIO_ESP01_PORT,LOW) ; 
+  digitalWrite(GPIO_ESP01_PORT,HIGH) ; 
   
 }
 
@@ -64,7 +64,7 @@ void loop() {
    if(register_delay.isDelay==false) {
      isOnToy = FIRST_MODE_TOY_ON ; 
      t0 = millis() ; 
-     digitalWrite(GPIO_ESP01_PORT,HIGH) ; 
+     digitalWrite(GPIO_ESP01_PORT,LOW) ; 
    }else if(register_delay.isDelay==true){
     isOnToy = SECOND_MODE_TOY_ON  ; 
     tdelayOn = millis() ; 
@@ -73,12 +73,12 @@ void loop() {
  
  if (millis()-t0>20000 && isOnToy == FIRST_MODE_TOY_ON  ) 
  {
-  digitalWrite(GPIO_ESP01_PORT,LOW) ; 
+  digitalWrite(GPIO_ESP01_PORT,HIGH) ; 
   isOnToy = MODE_TOY_OFF  ; 
  }else if (millis()-tdelayOn>= register_delay.delayTime*1000   &&     isOnToy ==  SECOND_MODE_TOY_ON  ){
     isOnToy = FIRST_MODE_TOY_ON ; 
     t0 = millis() ; 
-    digitalWrite(GPIO_ESP01_PORT,HIGH) ; 
+    digitalWrite(GPIO_ESP01_PORT,LOW) ; 
  }    
 
 }
