@@ -27,7 +27,6 @@ uint8_t  isOnToy = 0 ;
 
 void setup() 
 {
-  Serial.begin(9600) ; 
   ConnectAP()  ; 
   button_server.begin() ; 
   pinMode(GPIO_ESP01_PORT,OUTPUT) ; 
@@ -48,16 +47,21 @@ void loop() {
     cliente.readBytes(buffer_receive, size_buffer) ; 
     if (buffer_receive[0]==0xAB && buffer_receive[size_buffer-1]==0xAB)
     {
-      if (isOnToy == MODE_TOY_OFF){  
+       // evita que al presionar varias veces en el servidor se repita, y se vuelva a encender 
+       // permite una unica rutina 
+      if (isOnToy == MODE_TOY_OFF){ 
         isDatareceived = true ; 
         memcpy(&register_delay,&buffer_receive[1],size_buffer-2) ; 
       }
     }
   }
  }else{
-   ConnectAP() ; 
+   ConnectAP() ; // si se desconecta -- vuelve a conectarse 
  }  
  
+ // seleccion de tiempo en base a datos recibidos por el servidor 
+ // se realiza aparte, ya que recibe cuelgues del microprocesador
+ // si se realiza dentro de la rutina de recepcion   
  if (isDatareceived==true)
  {
    isDatareceived = false ; 
@@ -71,11 +75,16 @@ void loop() {
    }   
  }
  
+
+ // si el modo es FIRST_MODE_TOY_ON, entonces queda encendido durante 20 segundos 
+ // si el modo es SECOND_MODE_TOY_ON, entonces, espera un tiempo preseteado, y luego 
+ // cambia a FIRST_MODE_TOY, y enciende el juguete durante 20 segundos  
  if (millis()-t0>20000 && isOnToy == FIRST_MODE_TOY_ON  ) 
  {
   digitalWrite(GPIO_ESP01_PORT,HIGH) ; 
   isOnToy = MODE_TOY_OFF  ; 
  }else if (millis()-tdelayOn>= register_delay.delayTime*1000   &&     isOnToy ==  SECOND_MODE_TOY_ON  ){
+    //register_delay.delayTime*1000 es tiempo en milisegundos -- se comparaan milisegundos 
     isOnToy = FIRST_MODE_TOY_ON ; 
     t0 = millis() ; 
     digitalWrite(GPIO_ESP01_PORT,LOW) ; 
@@ -96,7 +105,6 @@ void ConnectAP(){
   {
     count_timeout++ ; 
     delay(200);
-    Serial.print('.');
   }
 
 
