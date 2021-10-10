@@ -6,7 +6,8 @@
 #define SECOND_MODE_TOY_ON 2 
 #define MODE_TOY_OFF       0 
 #define GPIO_ESP01_PORT    0 
-
+#define SSID_WIFI_SERVER   "APRILP"  
+#define SSID_PASS_WIFI     "APRILPserver"   
 
 
 struct {
@@ -28,7 +29,7 @@ uint8_t  isOnToy = 0 ;
 void setup() 
 {
   ConnectAP()  ; 
-  button_server.begin() ; 
+  button_server.begin() ; //servidor TCP mediante sockets a la escucha 
   pinMode(GPIO_ESP01_PORT,OUTPUT) ; 
   digitalWrite(GPIO_ESP01_PORT,HIGH) ; 
   
@@ -95,12 +96,11 @@ void loop() {
 void ConnectAP(){
   const int timeout = 50 ; 
   int count_timeout = 0 ; 
-  const char *ssid = "APRILP" ; 
-  const char *psk  = "APRILPserver" ;  
+  const char *ssid =  SSID_WIFI_SERVER; 
+  const char *psk  =  SSID_PASS_WIFI ;  
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, psk);
-  Serial.print("Conectando a:\t");
-  Serial.println(ssid); 
+
   while (WiFi.status() != WL_CONNECTED && count_timeout<=timeout) 
   {
     count_timeout++ ; 
