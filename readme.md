@@ -52,7 +52,7 @@ Adicionalmente, posee un servidor web, con los archivos
 
 Estos archivos, se puede ingresar desde cualquier celular/pc, solo basta conectarse a la red WiFi creada por el mismo. La IP debe ingresar es "192.168.4.1". 
 
-```C++
+```cpp
     Serial.begin(960)
     Serial.println("hello world") ; 
     // this is a comment 
