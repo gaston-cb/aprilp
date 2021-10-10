@@ -1,9 +1,10 @@
-# Encendido remoto 
+# Encendido remoto  - version 1.0 
 
-El proyecto, controla el encendido remoto (a distancia) de un circuito, en base a un receptor. Este receptor, se conecta a la red WiFi creada por el pulsador. Este pulsador al ser presionado, le envía la orden de encendido a todos los clientes (receptores), el cual realiza la activación de todos juntos. El servidor, y cliente, es alimentado mediante dos pilas AA de 1.5 V. También, puede utilizarse para encender cualquier otro tipo de circuito, siempre y cuando, no supere la corriente máxima admitida por el optoacoplador. El sistema diseñado, responde al siguiente esquema: 
+El proyecto, controla el encendido remoto (a distancia) de un circuito, en base a un receptor. Este receptor, se conecta a una red WiFi creada por el pulsador. Este pulsador al ser presionado, le envía la orden de encendido a todos los clientes (receptores), el cual realiza la activación de todos juntos. El servidor, y cliente, es alimentado mediante dos pilas AA de 1.5 V. También, puede utilizarse para encender cualquier otro tipo de circuito, siempre y cuando, no supere la corriente máxima admitida por el optoacoplador. El sistema diseñado, responde al siguiente esquema: 
 
 
-La institución, que probará y realizará los test correspondientes a software y hardware, es APRILP, y se usarán en juguetes, para chicos con discapacidad. 
+La institución, que probará y realizará los test correspondientes a software y hardware, es APRILP, y se usarán en juguetes, para chicos con discapacidad. Estos test, se documentarán para una proxima versión. Se aceptan sugerencias/modificación para realizar mejoras/upgrades del código. 
+
 # Materiales 
    
    La siguiente lista de materiales, depende del circuito a encender. La elección del optoacoplador, depende de la corriente que maneje el circuito a encender. En este caso, se utiliza el PC817, por estar disponible comercialmente en Argentina.
@@ -29,26 +30,35 @@ La programación puede realizarse de dos maneras:
 En este caso, se usa el adaptador CP2102. El circuito que debe armarse, responde al siguiente diagrama: 
 <!--Diagrama de conexión con esp01 --> 
 
-Se debe realizar la instalación de los paquetes dentro del arduino IDE. Una vez instalada la placa ESP8266, dentro del arduino IDE, se debe elegir un ejemplo, y proceder de la siguiente forma, para poder cargar el código: 
+
+Para realizar el test del circuito, para la carga del sketch, se debe instalar la placa ESP8266 dentro del Arduino IDE. Una vez instalada la placa ESP8266, dentro del arduino IDE, se debe elegir un ejemplo, y proceder de la siguiente forma, para poder cargar el código: 
     
     1 Presionar el boton de reset
     2 Presionar simultameamente el otro pulsador (GPIO 0)
-    3 Soltar el boton de reset, manteniendo presionado el pulsador GPIO0 
+    3 Soltar el boton de reset, manteniendo presionado el pulsador  GPIO0 
     4 Soltar el boton de GPIO 0.
 
 Una vez realizados estos pasos, se presiona el boton "upload" en el arduino IDE, y se observa que cargará el sketch. Una vez finalizada la carga, se debe presionar nuevamente el boton de reset, para que el programa empiece a correr. 
 
-
+<!--python 3.9.6 
+    PlatformioIDE 
+-->
 
 # Servidor pulsador 
 
 El servidor, crea la red WiFi en este caso, con los siguientes parámetros: 
+
+Adicionalmente, posee un servidor web, con los archivos 
+
+Estos archivos, se puede ingresar desde cualquier celular/pc, solo basta conectarse a la red WiFi creada por el mismo. La IP debe ingresar es "192.168.4.1". 
+
+
 
 
 
 
 
 ## Reconocimientos de MAC ADDRESS de espressif
-el archivo python ordena las MACS de menor a mayor, para luego realizar una busqueda rápida en el procesamiento de las macs address. Se utiliza python 3.9. https://maclookup.app/vendors/espressif-inc - Lista de macAdress   
+el archivo python ordena las MACS de menor a mayor, para luego realizar una busqueda rápida en el procesamiento de las macs address. Se utiliza python 3.9. https://maclookup.app/vendors/espressif-inc - Lista de MAC Adress   
 
 ## 
