@@ -100,7 +100,7 @@ void ConnectAP(){
   const int timeout = 50 ; 
   int count_timeout = 0 ; 
   const char *ssid =  SSID_WIFI_SERVER; 
-  const char *psk  =  SSID_PASS_WIFI ;  
+  const char *psk  =  SSID_PASS_WIFI  ;  
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, psk);
 
@@ -109,6 +109,5 @@ void ConnectAP(){
     count_timeout++ ; 
     delay(200);
   }
-
 
 }
