@@ -9,7 +9,9 @@
 #define SSID_WIFI_SERVER   "APRILP"  
 #define SSID_PASS_WIFI     "APRILPserver"   
 
-
+// registro de almacenamiento de modo y datos 
+// mantiene los valores en memoria en base a los 
+//datos recibidos por el servidor  
 struct {
   bool isDelay ; 
   unsigned int delayTime ; 
@@ -62,7 +64,8 @@ void loop() {
  
  // seleccion de tiempo en base a datos recibidos por el servidor 
  // se realiza aparte, ya que recibe cuelgues del microprocesador
- // si se realiza dentro de la rutina de recepcion   
+ // si se realiza dentro de la rutina de recepcion, se corren riesgos 
+ // de colgado del microcontrolador  
  if (isDatareceived==true)
  {
    isDatareceived = false ; 
@@ -85,7 +88,7 @@ void loop() {
   digitalWrite(GPIO_ESP01_PORT,HIGH) ; 
   isOnToy = MODE_TOY_OFF  ; 
  }else if (millis()-tdelayOn>= register_delay.delayTime*1000   &&     isOnToy ==  SECOND_MODE_TOY_ON  ){
-    //register_delay.delayTime*1000 es tiempo en milisegundos -- se comparaan milisegundos 
+    //register_delay.delayTime*1000 es tiempo en milisegundos -- se comparan milisegundos 
     isOnToy = FIRST_MODE_TOY_ON ; 
     t0 = millis() ; 
     digitalWrite(GPIO_ESP01_PORT,LOW) ; 
