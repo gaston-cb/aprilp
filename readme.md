@@ -145,7 +145,19 @@ La definición, que almacena las IP, y el estado de los retaros, se define de la
         uint8_t Ipclients[4][4] ;    // ip clients esp8266 --  
     }; 
 ```
-Estas definiciones, se realizan en el archivo [registroDelayWeb](ServidorBotonAprilp/src/registroDelayWeb "registros de datos")
+Estas definiciones, se realizan en el archivo [registroDelayWeb](ServidorBotonAprilp/src/registroDelayWeb.h "registros de datos")
+
+## Desarrollo de software 
+
+Se ha realizado en módulos, con las funciones distribuidas en tres archivos: 
+ - main.cpp 
+ - webPages.h 
+ - WiFiFunctions.hpp 
+
+El archivo main.cpp, contiene las siguientes funciones: 
+
+
+
 
 
 # MEJORAS 
