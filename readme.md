@@ -248,4 +248,63 @@ El circuito es el siguiente:
 
 # Clientes receptor 
 
+El receptor esta alojado en la carpeta ReceptorBotonAprilp. El código esta en el archivo [main.cpp](ReceptorBotonAprilp\src\main.cpp "archivo cliente main"). Este archivo, consta de las siguientes funciones: 
+|función |retorno| descripcion | 
+|--------|-------|-------------| 
+|`ConnectAP()`|void| se conecta a la red creada por el servidor WiFi| 
+
+Dentro del código principal, se debe garantizar, que al desconectarse, vuelva a reconectarse automaticamente, mediante la llamada a la función ConnectAP(). Esto se realiza mediante las siguientes sentencias: 
+```c++ 
+if (WiFi.status()==WL_CONNECTED)
+{
+    // codigo de recepción del servidor ! 
+}else ConnectAP() ; 
+```
+
+La libreria utilizada para la recepción del servidor es ESP8266WiFi.h. 
+
+Se ha definido una estructura de datos, para el manejo de el encendidom, y algunas variables del estilo flags. Estas estructuras y variables, se definen de la siguiente forma: 
+```c++
+struct {
+  bool isDelay ; 
+  unsigned int delayTime ; 
+}register_delay ;  
+uint8_t  isOnToy = 0 ; 
+```
+Las variables cumplen las siguientes funciones: 
+|variable           |valor| descripción | 
+|------------------|-----|---------------| 
+|`register_delay.isDelay`|true | esta activado el retraso.  |
+|`register_delay.isDelay`|false |Esta desactivado el retraso|
+|`register_delay.delaytime`|unsigned int | si el retraso esta activado, esta variable indica la cantidad de segundos de retraso|
+|`isOnToy`| 0 | Apagado                        |
+|`isOnToy`| 1 | encendido sin retraso          |
+|`isOnToy`| 2 | encendido con retraso          | 
+
+
+Una vez encendido, se le da una duración de 20 segundos. Estas variables, sirven para indicar el estado, y además, para evitar la sobrecarga al presionar el boton del servidor. 
+
+La configuración de estos parámetros viene dada por las siguientes definiciones de macro, en el archivo [main.cpp](ReceptorBotonAprilp\src\main.cpp "archivo cliente main")
+```c++
+#define PORT_TCP_SOCKET    18220 
+#define TIME_ON_RECEIVE    20 // 20 SEGUNDOS 
+#define FIRST_MODE_TOY_ON  1 
+#define SECOND_MODE_TOY_ON 2 
+#define MODE_TOY_OFF       0 
+#define GPIO_ESP01_PORT    0 
+#define SSID_WIFI_SERVER   "APRILP"  
+#define SSID_PASS_WIFI     "APRILPserver"  
+```
+
+
+El circuito del cliente es el siguiente: 
+<!--
+    circuito receptor 
+-->
+
+
+
+
+
+
 # BUGS 
