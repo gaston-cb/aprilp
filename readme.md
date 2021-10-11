@@ -240,11 +240,7 @@ Luego dentro del código principal, debe realizarse la siguiente rutina, para de
     }
 }
 ```
-El circuito es el siguiente: 
-
-<!--
- imagen del circuito 
--->
+El circuito para el servidor se encuentra [aquí](esquemático.pdf "circuito servidor") 
 
 # Clientes receptor 
 
@@ -300,12 +296,22 @@ La configuración de estos parámetros viene dada por las siguientes definicione
 El circuito del cliente es el siguiente, ya que deberá tener un optoacoplador, para poder cerrar el circuito remoto. El circuito, puede verse en [aquí](esquemáticos.pdf), es el circuito cliente
 
 # Testing 
-Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquemático, y el servidor, se realiza con un pulsador tact switch. 
+Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquemático, y el servidor, se realiza con un pulsador tact switch. El testing, se realizó con un único cliente.  
+checkbox 
+
+
+sin retraso ok
+>retraso de 10 s ok
+>retraso de 40 s ok
+>retraso de 80 s ok
+>retraso de 100 s ok
+>retraso de 150 s ok
+>retraso de 180 s ok
+
+# Agradecimientos
+ - [Instituto Argentino de radioastronomía](https://www.iar.unlp.edu.ar/). Por prestarme los programadores CP2021 
+ - [Edetec] Por presentarme el proyecto y permitir desarrollarlo 
+ - [Aprilp] Por ser el destinatario, y quien impuso los requerimientos. 
 
 
 
-
-
-
-
-# BUGS 
