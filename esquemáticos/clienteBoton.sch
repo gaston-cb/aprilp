@@ -1,0 +1,386 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Isolator:PC817 U1
+U 1 1 6164B4CD
+P 2800 1700
+F 0 "U1" H 2800 2025 50  0000 C CNN
+F 1 "PC817" H 2800 1934 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 2600 1500 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2800 1700 50  0001 L CNN
+	1    2800 1700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R_US R1
+U 1 1 6164CCCA
+P 3800 1300
+F 0 "R1" H 3868 1346 50  0000 L CNN
+F 1 "1K" H 3868 1255 50  0000 L CNN
+F 2 "" V 3840 1290 50  0001 C CNN
+F 3 "~" H 3800 1300 50  0001 C CNN
+	1    3800 1300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L esp-01:ESP-01 U2
+U 1 1 6164EE03
+P 3750 1900
+F 0 "U2" H 3800 2278 50  0000 C CNN
+F 1 "ESP-01" H 3750 1900 50  0001 L BNN
+F 2 "ESP-01" H 3750 1900 50  0001 L BNN
+F 3 "" H 3750 1900 50  0001 L BNN
+	1    3750 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 1700 4350 1450
+Wire Wire Line
+	4800 1900 4800 1600
+$Comp
+L power:+3.3V #PWR0101
+U 1 1 61652131
+P 5000 1450
+F 0 "#PWR0101" H 5000 1300 50  0001 C CNN
+F 1 "+3.3V" H 5015 1623 50  0001 C CNN
+F 2 "" H 5000 1450 50  0001 C CNN
+F 3 "" H 5000 1450 50  0001 C CNN
+	1    5000 1450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GNDREF #PWR0102
+U 1 1 616529F3
+P 3150 2350
+F 0 "#PWR0102" H 3150 2100 50  0001 C CNN
+F 1 "GNDREF" H 3155 2177 50  0000 C CNN
+F 2 "" H 3150 2350 50  0001 C CNN
+F 3 "" H 3150 2350 50  0001 C CNN
+	1    3150 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 2350 3150 2350
+Wire Wire Line
+	3250 2000 3250 2350
+Wire Wire Line
+	5000 1600 5000 1450
+$Comp
+L Device:R_US R2
+U 1 1 616546E8
+P 4600 1650
+F 0 "R2" H 4668 1696 50  0000 L CNN
+F 1 "1K" H 4668 1605 50  0000 L CNN
+F 2 "" V 4640 1640 50  0001 C CNN
+F 3 "~" H 4600 1650 50  0001 C CNN
+	1    4600 1650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 1450 4600 1500
+Wire Wire Line
+	4800 1600 5000 1600
+Wire Wire Line
+	4800 1450 4800 1600
+Connection ~ 4800 1600
+Wire Wire Line
+	4350 1900 4800 1900
+Wire Wire Line
+	3100 1800 3250 1800
+Connection ~ 4600 1450
+Wire Wire Line
+	4600 1450 4800 1450
+Wire Wire Line
+	4350 1450 4600 1450
+Wire Wire Line
+	4600 1300 4600 1450
+Wire Wire Line
+	3950 1300 4600 1300
+Wire Wire Line
+	3650 1300 3100 1300
+Wire Wire Line
+	3100 1300 3100 1600
+$Comp
+L Connector:AudioPlug2 J1
+U 1 1 61662D41
+P 1550 1700
+F 0 "J1" H 1607 2067 50  0000 C CNN
+F 1 "plug 3.5 mono" H 1607 1976 50  0000 C CNN
+F 2 "" H 1900 1650 50  0001 C CNN
+F 3 "~" H 1900 1650 50  0001 C CNN
+	1    1550 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2150 1800 2500 1800
+Wire Wire Line
+	2150 1600 2500 1600
+Wire Wire Line
+	4350 1800 4600 1800
+Text Notes 4800 1300 0    50   ~ 0
+2.8 - 3.3 v\n
+Wire Wire Line
+	9350 1750 9350 1450
+$Comp
+L power:+3.3V #PWR0103
+U 1 1 6166E5F0
+P 9550 1300
+F 0 "#PWR0103" H 9550 1150 50  0001 C CNN
+F 1 "+3.3V" H 9565 1473 50  0001 C CNN
+F 2 "" H 9550 1300 50  0001 C CNN
+F 3 "" H 9550 1300 50  0001 C CNN
+	1    9550 1300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9550 1450 9550 1300
+$Comp
+L Device:R_US R3
+U 1 1 6166E5F7
+P 9150 1500
+F 0 "R3" H 9218 1546 50  0000 L CNN
+F 1 "10K" H 9218 1455 50  0000 L CNN
+F 2 "" V 9190 1490 50  0001 C CNN
+F 3 "~" H 9150 1500 50  0001 C CNN
+	1    9150 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9150 1300 9150 1350
+Wire Wire Line
+	9350 1450 9550 1450
+Wire Wire Line
+	9350 1300 9350 1450
+Connection ~ 9350 1450
+Connection ~ 9150 1300
+Wire Wire Line
+	9150 1300 9350 1300
+Wire Wire Line
+	8900 1300 9150 1300
+Text Notes 9350 1150 0    50   ~ 0
+2.8 - 3.3 v\n
+$Comp
+L power:GNDREF #PWR0104
+U 1 1 6166F9B9
+P 7750 1950
+F 0 "#PWR0104" H 7750 1700 50  0001 C CNN
+F 1 "GNDREF" H 7755 1777 50  0000 C CNN
+F 2 "" H 7750 1950 50  0001 C CNN
+F 3 "" H 7750 1950 50  0001 C CNN
+	1    7750 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8900 1750 9350 1750
+Wire Wire Line
+	8900 1650 9150 1650
+$Comp
+L esp-01:ESP-01 U3
+U 1 1 6166E5E8
+P 8300 1750
+F 0 "U3" H 8350 2128 50  0000 C CNN
+F 1 "ESP-01" H 8300 1750 50  0001 L BNN
+F 2 "ESP-01" H 8300 1750 50  0001 L BNN
+F 3 "" H 8300 1750 50  0001 L BNN
+	1    8300 1750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7750 1850 7750 1950
+Wire Wire Line
+	7800 1650 7450 1650
+Wire Wire Line
+	7750 1850 7450 1850
+Wire Wire Line
+	8900 1300 8900 1550
+Wire Wire Line
+	7750 1850 7800 1850
+Connection ~ 7750 1850
+Text HLabel 7450 1650 0    50   Input ~ 0
+JACK3.5HEMBRA
+Text HLabel 7450 1850 0    50   Input ~ 0
+jack3.5hembra
+Text Notes 8200 1300 0    50   ~ 0
+ESP-01\n
+Text Notes 3600 2250 0    50   ~ 0
+ESP-01\n
+Text Notes 4250 3650 0    250  ~ 0
+Circuito Testing\n
+Text Notes 6850 950  0    250  ~ 0
+Circuito servidor
+$Comp
+L Isolator:PC817 U?
+U 1 1 61689E11
+P 4950 4500
+F 0 "U?" H 4950 4825 50  0000 C CNN
+F 1 "PC817" H 4950 4734 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 4750 4300 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 4950 4500 50  0001 L CNN
+	1    4950 4500
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 61689E17
+P 5950 4100
+F 0 "R?" H 6018 4146 50  0000 L CNN
+F 1 "1K" H 6018 4055 50  0000 L CNN
+F 2 "" V 5990 4090 50  0001 C CNN
+F 3 "~" H 5950 4100 50  0001 C CNN
+	1    5950 4100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L esp-01:ESP-01 U?
+U 1 1 61689E1D
+P 5900 4700
+F 0 "U?" H 5950 5078 50  0000 C CNN
+F 1 "ESP-01" H 5900 4700 50  0001 L BNN
+F 2 "ESP-01" H 5900 4700 50  0001 L BNN
+F 3 "" H 5900 4700 50  0001 L BNN
+	1    5900 4700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6500 4500 6500 4250
+Wire Wire Line
+	6950 4700 6950 4400
+$Comp
+L power:+3.3V #PWR?
+U 1 1 61689E25
+P 7150 4250
+F 0 "#PWR?" H 7150 4100 50  0001 C CNN
+F 1 "+3.3V" H 7165 4423 50  0001 C CNN
+F 2 "" H 7150 4250 50  0001 C CNN
+F 3 "" H 7150 4250 50  0001 C CNN
+	1    7150 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GNDREF #PWR?
+U 1 1 61689E2B
+P 5300 5150
+F 0 "#PWR?" H 5300 4900 50  0001 C CNN
+F 1 "GNDREF" H 5305 4977 50  0000 C CNN
+F 2 "" H 5300 5150 50  0001 C CNN
+F 3 "" H 5300 5150 50  0001 C CNN
+	1    5300 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5400 5150 5300 5150
+Wire Wire Line
+	5400 4800 5400 5150
+Wire Wire Line
+	7150 4400 7150 4250
+$Comp
+L Device:R_US R?
+U 1 1 61689E34
+P 6750 4450
+F 0 "R?" H 6818 4496 50  0000 L CNN
+F 1 "1K" H 6818 4405 50  0000 L CNN
+F 2 "" V 6790 4440 50  0001 C CNN
+F 3 "~" H 6750 4450 50  0001 C CNN
+	1    6750 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 4250 6750 4300
+Wire Wire Line
+	6950 4400 7150 4400
+Wire Wire Line
+	6950 4250 6950 4400
+Connection ~ 6950 4400
+Wire Wire Line
+	6500 4700 6950 4700
+Wire Wire Line
+	5250 4600 5400 4600
+Connection ~ 6750 4250
+Wire Wire Line
+	6750 4250 6950 4250
+Wire Wire Line
+	6500 4250 6750 4250
+Wire Wire Line
+	6750 4100 6750 4250
+Wire Wire Line
+	6100 4100 6750 4100
+Wire Wire Line
+	5800 4100 5250 4100
+Wire Wire Line
+	5250 4100 5250 4400
+Wire Wire Line
+	6500 4600 6750 4600
+Text Notes 6950 4100 0    50   ~ 0
+2.8 - 3.3 v\n
+Text Notes 5750 5050 0    50   ~ 0
+ESP-01\n
+$Comp
+L power:GNDREF #PWR?
+U 1 1 6168AF6A
+P 4250 5550
+F 0 "#PWR?" H 4250 5300 50  0001 C CNN
+F 1 "GNDREF" H 4255 5377 50  0000 C CNN
+F 2 "" H 4250 5550 50  0001 C CNN
+F 3 "" H 4250 5550 50  0001 C CNN
+	1    4250 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+9V #PWR?
+U 1 1 6168B5D6
+P 4200 4300
+F 0 "#PWR?" H 4200 4150 50  0001 C CNN
+F 1 "+9V" H 4215 4473 50  0000 C CNN
+F 2 "" H 4200 4300 50  0001 C CNN
+F 3 "" H 4200 4300 50  0001 C CNN
+	1    4200 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_US R?
+U 1 1 6168D58C
+P 4250 4900
+F 0 "R?" H 4182 4854 50  0000 R CNN
+F 1 "330" H 4182 4945 50  0000 R CNN
+F 2 "" V 4290 4890 50  0001 C CNN
+F 3 "~" H 4250 4900 50  0001 C CNN
+	1    4250 4900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4250 4750 4250 4600
+Wire Wire Line
+	4250 4600 4650 4600
+Wire Wire Line
+	4200 4300 4200 4400
+Wire Wire Line
+	4200 4400 4650 4400
+$Comp
+L Device:LED D?
+U 1 1 61698DFA
+P 4250 5250
+F 0 "D?" V 4289 5132 50  0000 R CNN
+F 1 "LED" V 4198 5132 50  0000 R CNN
+F 2 "" H 4250 5250 50  0001 C CNN
+F 3 "~" H 4250 5250 50  0001 C CNN
+	1    4250 5250
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4250 5100 4250 5050
+Wire Wire Line
+	4250 5400 4250 5550
+$EndSCHEMATC

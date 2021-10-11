@@ -297,11 +297,14 @@ La configuración de estos parámetros viene dada por las siguientes definicione
 ```
 
 
-El circuito del cliente es el siguiente: 
-<!--
-    circuito receptor 
--->
+El circuito del cliente es el siguiente, ya que deberá tener un optoacoplador, para poder cerrar el circuito remoto. El circuito, puede verse en [aquí](esquemáticos/esquemáticos.pdf), es el circuito cliente
 
+# Testing 
+Se realiza 
+
+<!--
+    circuito bajo ensayo 
+-->
 
 
 
