@@ -106,24 +106,31 @@ Archivo de configuración para el cliente
 ```
 # Servidor pulsador 
 
+El servidor pulsador, reconoce a los botones clientes, mediante sus direcciones MACS. En este proyecto, se supone que todas las MAC-ADRRESS, pertenecen a la compañia espressif. Para crear este archivo se utliza el archivo sortedMACS.py
+
+## Configuración de MACS ADDRESS de espressif 
+El archivo python ordena las MACS de menor a mayor, para luego realizar una busqueda rápida en el procesamiento de las macs address. Se utiliza python 3.9.6. Se ingresan las MAC ADDRESS dentro del archivo sortedMACS.py, dentro de una lista denominada macAddress.  Una lista completa puede obtenerse desde [aquí](https://maclookup.app/vendors/espressif-inc " lista de mac address de espressif"). Una vez ingresada, se utiliza el método sort, y se genera el archivo macaddress.h, en ServidorBotonAprilp/include/. El código del archivo sortedMACS.py 
 
 
-
-```C++
-    Serial.begin(960)
-    Serial.println("hello world") ; 
-    // this is a comment 
-    const char b = 0x33
-    //test using multiline in markDown 
+```Python 
+   from io import FileIO
+   macAddress = [
+       addr1, 
+       addr2,
+       .... 
+       addrn]
+    macAddress.sort() ;  
+    file = open('ServidorBotonAprilp/include/macaddress.h','w')
+    for el in macAddress: 
+    file.write("#define MAC_ADDRESS_ESPRESSIF_"+str(i)+" "+"0x"+str(str(hex(el)).split('0x')[1]).upper()+      '\n') 
+    hexadecimal_number_Str = str(hex(el)).split('0x') ;  
+    print(hexadecimal_number_Str[1])  
+    i = i + 1  
 ```
+## Definición de estructuras de datos 
 
 
 
-
-## Reconocimientos de MAC ADDRESS de espressif
-el archivo python ordena las MACS de menor a mayor, para luego realizar una busqueda rápida en el procesamiento de las macs address. Se utiliza python 3.9. 
-
-- [Lista de MAC Adress](https://maclookup.app/vendors/espressif-inc " lista de mac address de espressif")   
 
 # MEJORAS 
 # BUGS 
