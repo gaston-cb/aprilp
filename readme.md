@@ -1,3 +1,6 @@
+<p align="center"><a href="https://vuejs.org" target="_blank" rel="noopener noreferrer"><img width="100" src="https://vuejs.org/images/logo.png" alt="Vue logo"></a></p>
+
+
 # Encendido remoto  -  version 1.0 
 
 El proyecto, controla el encendido remoto (a distancia) de un circuito, en base a un receptor. Este receptor, se conecta a una red WiFi creada por un pulsador. Este pulsador al ser presionado, le envía la orden de encendido a todos los clientes (receptores), el cual realiza la activación de todos juntos. El servidor, y cliente, es alimentado mediante dos pilas AA de 1.5 V. También, puede utilizarse para encender cualquier otro tipo de circuito, siempre y cuando, no supere la corriente máxima admitida por el optoacoplador. El sistema diseñado, responde al siguiente esquema: 
@@ -216,10 +219,6 @@ Se definen los siguientes encabezados, para definir diferentes configuraciones:
     ]
 ```
 
-<!--
-    IMAGEN DEL CIRCUITO O esquematico 
---> 
-
 Luego dentro del código principal, debe realizarse la siguiente rutina, para detectar el pulsador, modificar el delay, y configuración del servidor web. El código es el siguiente: 
 ```c++ 
   void loop() 
@@ -240,7 +239,7 @@ Luego dentro del código principal, debe realizarse la siguiente rutina, para de
     }
 }
 ```
-El circuito para el servidor se encuentra [aquí](esquemático.pdf "circuito servidor") 
+El circuito para el servidor se encuentra [aquí](esquemático.pdf "circuito servidor"). Cabe destacar, que el servidor web, funciona unicamente con google chrome, se debe trabajar para que funcione con firefox. Se debe realizar el test en demás navegadores.  
 
 # Clientes receptor 
 
@@ -296,22 +295,32 @@ La configuración de estos parámetros viene dada por las siguientes definicione
 El circuito del cliente es el siguiente, ya que deberá tener un optoacoplador, para poder cerrar el circuito remoto. El circuito, puede verse en [aquí](esquemáticos.pdf), es el circuito cliente
 
 # Testing 
-Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquemático, y el servidor, se realiza con un pulsador tact switch. El testing, se realizó con un único cliente.  
-checkbox 
+Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquemático, y el servidor, se realiza con un pulsador tact switch. El testing, se realizó con un único cliente. Para programar los retados, se ha utilizado google chrome. En otros navegadores, suele fallar. 
+
+- [X] sin retraso
+- [X] retraso de 10 s 
+- [X] retraso de 40 s 
+- [X] retraso de 80 s 
+- [X] retraso de 100 s 
+- [X] retraso de 150 s 
+- [X] retraso de 180 s 
 
 
-sin retraso ok
->retraso de 10 s ok
->retraso de 40 s ok
->retraso de 80 s ok
->retraso de 100 s ok
->retraso de 150 s ok
->retraso de 180 s ok
+## bugs 
+- Solo funciona en google chrome 
+## Mejoras en próximas versiones
+
+- Retardos opcionales por cliente
+- Sitio web con avisos por cliente conectado
+- Ampliar el espectro de navegadores 
+
+
 
 # Agradecimientos
- - [Instituto Argentino de radioastronomía](https://www.iar.unlp.edu.ar/). Por prestarme los programadores CP2021 
- - [Edetec] Por presentarme el proyecto y permitir desarrollarlo 
- - [Aprilp] Por ser el destinatario, y quien impuso los requerimientos. 
+ - [Instituto Argentino de radioastronomía](https://www.iar.unlp.edu.ar/). Por prestarme los programadores CP2021, para llevar a cabo el proyecto. 
+ - Edetec: Por presentarme el proyecto y permitir desarrollarlo 
+ - [Aprilp]( www.sergioruau.com.ar " Asociación Pro Rehabilitación Infantil La Plata")  Por ser el destinatario, y quiénes impusieron los requerimientos, y quien va a realizar los test 
+
 
 
 
