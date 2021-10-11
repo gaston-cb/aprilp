@@ -149,7 +149,7 @@ Estas definiciones, se realizan en el archivo [registroDelayWeb](ServidorBotonAp
 
 ## Desarrollo de software servidor
 
-Se ha realizado en módulos, con las funciones distribuidas en tres archivos: 
+Se ha realizado en módulos, con funciones distribuidas en tres archivos: 
  - main.cpp 
  - webPages.h 
  - WiFiFunctions.hpp 
@@ -176,6 +176,19 @@ El archivo main.cpp, contiene las siguientes funciones:
 Las librerias utilizadas son:
 - WebSocketsServer.h 
 - ESP8266WebServer.h 
+
+### Archivo [WiFiFunctions.hpp](ServidorBotonAprilp/src/WiFiFunctions.hpp) 
+
+Este archivo, consta de dos funciones, la primera, crea la red WiFi, mientras la segunda, envia los datos a los clientes, tanto de retardo, y actuación. 
+En el caso de este archivo, puede configurarse el nombre y contraseña de la red wifi, en su cabecera consta de los siguientes parámetros de configuración mediante la macro #define  
+```c
+    #define PORT_TCP_SOCKET 18220 
+    #define SSID_WIFI_DIRECT_NAME "APRILP" //your name ssid favourite 
+    #define PASS_SSID_DIRECT_NAME "APRILPserver" //your pass favourite 
+    #define MAX_CONECTION_AP 5
+    #define HIDDEN_WIFI 0 // 0 - NO HIDDEN AP , 1 HIDDEN AP 
+```
+Donde se definen como máximo 5 conexiones activas, el puerto de conexión entre cliente/servidor. Si desea cambiar alguno de estos parámetros, debe modificar estos mismos. 
 
 
 
