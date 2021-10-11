@@ -7,7 +7,7 @@ Este receptor, se conecta a una red WiFi creada por un servidor, al que se le ad
 
 La institución, que probará y realizará los test correspondientes a software y hardware, es APRILP (Asociacion pro rehabilitación infantil La Plata), y se usarán en juguetes, para chicos con discapacidad. Estos test, se documentarán para una proxima versión. Se aceptan sugerencias/modificación para realizar mejoras/upgrades del código. Los esquemáticos para cada circuito, estan en [aquí](esquemáticos.pdf, "esquemáticos del proyecto"). Em este trabajo, se realiza la caja receptora y emisora del siguiente esquema: 
 <div>
-    <img src="images/aprilpImage"> 
+    <img src="images/aprilpImage.jpeg"> 
 </div>
 
 # Materiales 
