@@ -297,14 +297,12 @@ La configuración de estos parámetros viene dada por las siguientes definicione
 ```
 
 
-El circuito del cliente es el siguiente, ya que deberá tener un optoacoplador, para poder cerrar el circuito remoto. El circuito, puede verse en [aquí](esquemáticos/esquemáticos.pdf), es el circuito cliente
+El circuito del cliente es el siguiente, ya que deberá tener un optoacoplador, para poder cerrar el circuito remoto. El circuito, puede verse en [aquí](esquemáticos.pdf), es el circuito cliente
 
 # Testing 
-Se realiza 
+Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquemático, y el servidor, se realiza con un pulsador tact switch. 
 
-<!--
-    circuito bajo ensayo 
--->
+
 
 
 
