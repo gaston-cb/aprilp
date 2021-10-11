@@ -129,7 +129,23 @@ El archivo python ordena las MACS de menor a mayor, para luego realizar una busq
 ```
 ## Definición de estructuras de datos 
 
-
+El reconocimiento de las macs, requiere de 24 bits (3 bytes), denominadas OUI o vendoor. A partir de ellas, se reconoce el dispositivo. Se debe definir una estructura de datos, de 24bits. La definición de la estructura viene dada por: 
+```C
+    typedef struct 
+    {
+        unsigned int data: 24 ; 
+    }   uint24_t ; 
+```
+La definición, que almacena las IP, y el estado de los retaros, se define de la siguiente manera: 
+```cpp
+    struct clientRegister
+    {
+        bool isDelay ; 
+        unsigned int timeDelay ; 
+        uint8_t Ipclients[4][4] ;    // ip clients esp8266 --  
+    }; 
+```
+Estas definiciones, se realizan en el archivo [registroDelayWeb](ServidorBotonAprilp/src/registroDelayWeb "registros de datos")
 
 
 # MEJORAS 
