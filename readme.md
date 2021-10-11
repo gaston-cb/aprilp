@@ -1,10 +1,14 @@
 # Encendido remoto  -  version 1.0 
 
-El proyecto, controla el encendido remoto (a distancia) de un circuito, en base a un receptor. Este receptor, se conecta a una red WiFi creada por un pulsador. Este pulsador al ser presionado, le envía la orden de encendido a todos los clientes (receptores), el cual realiza la activación de todos juntos. El servidor, y cliente, es alimentado mediante dos pilas AA de 1.5 V. También, puede utilizarse para encender cualquier otro tipo de circuito, siempre y cuando, no supere la corriente máxima admitida por el optoacoplador. El sistema diseñado, responde al siguiente esquema: 
+El proyecto, controla el encendido remoto (a distancia) de un circuito, en base a un receptor. 
+Este receptor, se conecta a una red WiFi creada por un servidor, al que se le adosa un pulsador. Este pulsador al ser presionado, el servidor detecta este evento, y envía la orden de encendido a todos los clientes (receptores), el cual realiza la activación de todos juntos. El servidor, y el/los clientes, son alimentados mediante dos pilas AA de 1.5 V. También, puede utilizarse para encender cualquier otro tipo de circuito, siempre y cuando, no supere la corriente máxima admitida por el optoacoplador. El sistema diseñado, responde al siguiente esquema: 
 
 ![diagrama general](images/diagramabloques.png)
 
-La institución, que probará y realizará los test correspondientes a software y hardware, es APRILP (Asociacion pro rehabilitación infantil La Plata), y se usarán en juguetes, para chicos con discapacidad. Estos test, se documentarán para una proxima versión. Se aceptan sugerencias/modificación para realizar mejoras/upgrades del código. 
+La institución, que probará y realizará los test correspondientes a software y hardware, es APRILP (Asociacion pro rehabilitación infantil La Plata), y se usarán en juguetes, para chicos con discapacidad. Estos test, se documentarán para una proxima versión. Se aceptan sugerencias/modificación para realizar mejoras/upgrades del código. Los esquemáticos para cada circuito, estan en [aquí](esquemáticos.pdf, "esquemáticos del proyecto"). Em este trabajo, se realiza la caja receptora y emisora del siguiente esquema: 
+<div>
+    <img src="images/aprilpImage"> 
+</div>
 
 # Materiales 
    
