@@ -188,9 +188,64 @@ En el caso de este archivo, puede configurarse el nombre y contraseña de la red
     #define MAX_CONECTION_AP 5
     #define HIDDEN_WIFI 0 // 0 - NO HIDDEN AP , 1 HIDDEN AP 
 ```
-Donde se definen como máximo 5 conexiones activas, el puerto de conexión entre cliente/servidor. Si desea cambiar alguno de estos parámetros, debe modificar estos mismos. 
+Donde se definen como máximo 5 conexiones activas, el puerto de conexión entre cliente/servidor. Si desea cambiar alguno de estos parámetros, debe modificar estos mismos. Cabe destacar, que la contraseña del WiFi (`#define PASS_SSID_DIRECT_NAME`), debe tener al menos 8 caracteres, ya que sino creara una red denominada ESPXXXX,donde las XXXX denomina numeración aleatoria. 
 
+### Archivo main.cpp 
 
+Este archivo, contiene la definiciónes del servidor (rutas), webSockets, y el puerto a presionar para el envio de datos. 
 
-# MEJORAS 
+Se definen los siguientes encabezados, para definir diferentes configuraciones: 
+```c
+    #define NUMBERS_MACS_ESPRESSIF 96 
+    #define IP_LOCALHOST {127, 0 , 0 ,1}  
+    #define GPIO0_ESP01_SERVER  0   //def de puerto para presionar el boton 
+    ... 
+    clientRegister senddataClientSockets
+    {
+        false , // isDelay 
+        0U ,    // timeDelay 
+        {
+            IP_LOCALHOST,  
+            IP_LOCALHOST, 
+            IP_LOCALHOST,
+            IP_LOCALHOST
+        }  
+    }; 
+    const uint24_t macsAddressEspressif[NUMBERS_MACS_ESPRESSIF]{ 
+        // llenar con el archivo macaddress.h 
+    ]
+```
+
+<!--
+    IMAGEN DEL CIRCUITO O esquematico 
+--> 
+
+Luego dentro del código principal, debe realizarse la siguiente rutina, para detectar el pulsador, modificar el delay, y configuración del servidor web. El código es el siguiente: 
+```c++ 
+  void loop() 
+  {
+    webSocket.loop(); // datos desde delay.html
+    server.handleClient(); // servidor web online ! 
+    if(digitalRead(GPIO0_ESP01_SERVER)==LOW)
+    {
+        // antirrebotes 
+        while(digitalRead(GPIO0_ESP01_SERVER)==LOW){delay(10) ; }    
+        obtainIPClients() ; 
+        sendDataClient() ; 
+    }
+    // lista de clientes cada 30 segundos
+    if (millis()-t0>30000){
+        t0 = millis() ; 
+        obtainIPClients() ; // obtiene lista de macs, y llama a isMacEspressif, para llenar la lista de IPSdentro de la estructura senddataClientSockets
+    }
+}
+```
+El circuito es el siguiente: 
+
+<!--
+ imagen del circuito 
+-->
+
+# Clientes receptor 
+
 # BUGS 
