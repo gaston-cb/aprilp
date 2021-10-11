@@ -50,45 +50,65 @@ Una vez realizados estos pasos, se presiona el boton "upload" en el arduino IDE,
 Aquí, se mencionan los archivos principales, y carpetas utilizadas para el desarrollo del proyecto. Estos son: 
 ```
  ├── sortedMACS.py
- ├── delay.html 
+ ├── delay.html  
  ├── index.html
  ├── ReceptorBotonAprilp
         └── src 
  ├── ServidorBotonAprilp    
         └── src 
 ```
+Los archivos [delay.html](delay.html) e [index.html](index.html), poseen la página principal del servidor. Estos códigos se encuentran replicados en ServidorBotonAprilp/src/webPages. 
+
+La página [index.html](index.html), solamente tiene un boton, que es capaz de activar los retardos, y redirige a [delay.html](delay.html). Esta, se conecta mediante webSockets con el servidor, y le envia información del retardo. 
+
+El archivo [sortedMACS.py](sortedMACS.py "lista ordenada de macs"), genera un archivo "macaddress.h" en la siguente ruta ServidorBotonAprilp/include/macaddress.h. Si no dispone de un interprete de python en su sistema, puede utilizar el archivo por defecto. El objetivo de este archivo, es ordenar todas las macs de espressif, de menor a mayor, para realizar busqueda dicotómica. 
 
 
-## herramientas de software 
 
-|Herramienta    | versión |       
-|Python         | 3.9.6   |    
-|vscode         | 1.60.2  |    
-|Platformio     |1.918.108| 
+## Software utilizado 
+
+| herramienta | version  |
+|-------------|----------|
+| Python      | 3.9.6    |
+| vscode      | 1.60.2   |
+| Platformio  | 1.918.108|
 
 Para conocer su versión de python, debe ejecutar el siguiente comando, en la consola de su sistema: 
     
   `python --version`
 
 Si esta instalado, deberá verse la versión del mismo. Si usted no lo tiene instalado en su sistema, no podrá agregar lista de macs address ordenadas. Si usted desea usar este sistema, con otros tipos de chips que no sean de la compañia espressif, se recomienda su instalación. 
-    
-
 
 ## configuración de Platformio ide 
+Si usted clona este repositorio, la configuración de los archivos .ini, ya esta realizada. 
+Platformio IDE, puede instalarse como una extensión de vscode. Para instalarlo siga [esta guía](https://platformio.org/install/ide?install=vscode "instalación platformio ide"). Cada proyecto nuevo, posee un archivo de configuración, denominado **platformio.ini**. Este archivo debe configurarse para el programa servidor como para el cliente. 
 
-En cada proyecto nuevo, se crea un archivo de configuración, este se denomina *platformio.ini*. La configuración para el cliente es la siguiente: 
-
-Para el servidor es la siguiente: 
-
-
+Archivo de configuración para el servidor
+```ini
+    [env:esp01_1m]
+    platform = espressif8266
+    board = esp01_1m
+    framework = arduino
+    lib_deps = links2004/WebSockets @ 2.3.6
+    monitor_speed = 115200 
+    upload_protocol = esptool
+    board_build.flash_mode = dout 
+```
+Archivo de configuración para el cliente
+```ini
+    [env:esp01_1m]
+    platform = espressif8266
+    board = esp01_1m
+    framework = arduino
+    monitor_speed = 115200 
+    upload_protocol = esptool
+    board_build.flash_mode = dout 
+```
 # Servidor pulsador 
-<!--
-El servidor, crea la red WiFi en este caso, con los siguientes parámetros: 
 
-Adicionalmente, posee un servidor web, con los archivos 
 
-Estos archivos, se puede ingresar desde cualquier celular/pc, solo basta conectarse a la red WiFi creada por el mismo. La IP debe ingresar es "192.168.4.1". 
--->
+
+
 ```C++
     Serial.begin(960)
     Serial.println("hello world") ; 
