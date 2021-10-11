@@ -147,16 +147,35 @@ La definición, que almacena las IP, y el estado de los retaros, se define de la
 ```
 Estas definiciones, se realizan en el archivo [registroDelayWeb](ServidorBotonAprilp/src/registroDelayWeb.h "registros de datos")
 
-## Desarrollo de software 
+## Desarrollo de software servidor
 
 Se ha realizado en módulos, con las funciones distribuidas en tres archivos: 
  - main.cpp 
  - webPages.h 
  - WiFiFunctions.hpp 
 
+El archivo, webPages.h, contiene las páginas html, delay.html e index.html. El archivo WiFiFunctions tiene las siguientes funciones 
+
+|función     |retorno |descripción   | 
+|--------    | ------------|------------ | 
+|`createWiFiNet()`    |void | crea la red wifi | 
+|`sendDataClient()`    |void | envia los datos de retardo y tiempo a los clientes esp8266 conectados|
+
 El archivo main.cpp, contiene las siguientes funciones: 
 
+|función     |retorno |descripción   | 
+|--------    | ------------|------------ | 
+|`mainPage()`|void| pagina web al conectarse por HTTP-  index.html| 
+|`configDelayClockClient()` |void| sirve la página delay.html en el servidor   |
+|`dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length) `|ninguno |usada para el manejo de webSockets, se obtienen los valores de retardo de forma casi instantanea|
+|`newConnectClient(WiFiEventSoftAPModeStationConnected sta_info) ` |void| ejecuta la función newConnectClient, al conectarse un cliente. Sin uso en la versión actual, se espera darle algún uso en futuras versiones. 
+|`obtainIPClients()`  |void|obtiene las IPs de los clientes del tipo espressif conectados| 
+|`isMacEspressif(uint24_t macsAdress)`  |int|busqueda binaria, si retorna 1, se encontro la mac dentro de los clientes, si retorna -1, no se encontro la mac| 
 
+
+Las librerias utilizadas son:
+- WebSocketsServer.h 
+- ESP8266WebServer.h 
 
 
 
