@@ -298,61 +298,132 @@ El circuito del cliente es el siguiente puede verse [aquí](esquemáticos.pdf). 
 <table>
 <thead>
   <tr>
-    <th colspan="4">circuit 1 </th>
-    <th colspan="4">circuit 2 </th>
+    <th colspan="4"><img src = "circuits_simulate_LTSPICE/circuitoGND.png"> </th>
+    <th colspan="4"><img src = "circuits_simulate_LTSPICE/circuitoVCC.png"> </th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>V2[V]</td>
+    <td>VCE[V]</td>
+    <td>I(R2)[ma]</td>
+    <td> R2      </td>
+    <td>V2[V]</td>
+    <td>VCE[V]</td>
+    <td>I(R2)[ma]</td>
+    <td> R2      </td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>3    </td>
+    <td>2.99</td>
+    <td >2.03</td>
+    <td > 0.1</td>
+    <td>3</td>	
+    <td>2.99</td>	
+    <td>2.03</td> 
+    <td>0.1</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+   <td >4</td>
+    <td>3.99</td>
+    <td >2.04</td>
+    <td >0.1</td>  
+    <td>4</td>
+    <td>3.99</td>
+    <td>2.04</td>
+    <td>0.1</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>5</td>
+    <td>4.99</td>
+    <td>2.05</td>
+    <td>0.1</td>   
+    <td>5</td>
+    <td>4.99</td>
+    <td>2.05</td>
+    <td>0.1</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td >6 </td>
+    <td>5.99</td>
+    <td >2.07</td>
+    <td >0.1</td> 
+    <td>6</td>
+    <td>5.99</td>
+    <td>2.07</td>
+    <td>0.1</td>
   </tr>
+  <tr>
+    <td >7</td>
+    <td >6.99</td>
+    <td >2.08</td>
+    <td >0.1</td>
+    <td>7</td>
+    <td>6.99</td>
+    <td> 2.08</td>
+    <td> 0.1</td>
+  </tr>
+  <tr>
+    <td >8</td>
+    <td >7.99</td>
+    <td >2.10</td>
+    <td >0.1</td>
+    <td>8</td>
+    <td>7.99</td>	
+    <td>2.10</td>
+    <td>0.1</td>
+  </tr>
+  <tr>
+    <td >9</td>
+    <td >8.99</td>
+    <td >2.11</td>
+    <td >0.1</td>
+    <td>9</td>
+    <td>8.99</td>
+    <td>2.11</td>
+    <td>0.1</td>
+  </tr>
+  <tr>
+   <td>3</td>	
+   <td>0.118</td>	
+   <td>28.81</td>  
+   <td>10k</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>0.127</td>	
+    <td>38.72</td> 
+    <td>10K</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>0.135</td>	
+    <td>48.64</td>
+    <td>10K</td>
+  </tr>
+    <td>6</td>
+    <td>0.142</td>	
+    <td>58.57</td> 
+    <td>10K</td>
+  <tr>
+    <td>7</td>
+    <td>0.148</td>
+    <td>68.51</td>
+    <td>10K</td>
+  <tr>
+    <td>8</td>
+    <td>0.15</td>
+    <td>78.45</td>
+    <td>10K</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>0.160</td>
+    <td>88.39</td>
+    <td>10K</td>
+</tr>
+
+
 </tbody>
 </table>
 
