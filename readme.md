@@ -295,7 +295,6 @@ La configuración de estos parámetros viene dada por las siguientes definicione
 
 
 El circuito del cliente es el siguiente puede verse [aquí](esquemáticos.pdf). Este circuito se ha simulado, y la corriente máxima admitida por la carga (circuito a encender), depende de como se halla realizado el corte del circuito internamente al juguete. Este depende de si se ha cortado en Vcc o en GND. En ambos casos, se realizó la simulación del circuito con una carga que oscila entre 0 y 10K. El circuito puede verse en la carpeta de simulación del presente proyecto. 
-
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
@@ -307,33 +306,38 @@ El circuito del cliente es el siguiente puede verse [aquí](esquemáticos.pdf). 
 <table class="tg">
 <thead>
   <tr>
-    <th class="tg-0lax">circuito</th>
-    <th class="tg-0lax" colspan="3">circuito 1 </th>
-    <th class="tg-0lax" colspan="3">circuito 2</th>
+    <td class="tg-0lax" rowspan="5"><img src = "circuits_simulate_LTSPICE/circuitoGND.png"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
   </tr>
 </thead>
-<tbody>
-  <tr>
-    <td class="tg-0lax">vcc</td>
-    <td class="tg-0lax">vce</td>
-    <td class="tg-0lax">i</td>
-    <td class="tg-0lax">r</td>
-    <td class="tg-0lax">vce</td>
-    <td class="tg-0lax">i</td>
-    <td class="tg-0lax">r</td>
-  </tr>
-  <tr>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-    <td class="tg-0lax"></td>
-  </tr>
-</tbody>
 </table>
-
 
 # Testing 
 
