@@ -5,7 +5,7 @@ Este receptor, se conecta a una red WiFi creada por un servidor, al que se le ad
 
 ![diagrama general](images/diagramabloques.png)
 
-La institución, que probará y realizará los test correspondientes a software y hardware, es APRILP (Asociacion pro rehabilitación infantil La Plata), y se usarán en juguetes, para chicos con discapacidad. Estos test, se documentarán para una proxima versión. Se aceptan sugerencias/modificación para realizar mejoras/upgrades del código. Los esquemáticos para cada circuito, estan en [aquí](esquemáticos.pdf, "esquemáticos del proyecto"). Em este trabajo, se realiza la caja receptora y emisora del siguiente esquema: 
+La institución, que probará y realizará los test correspondientes a software y hardware, es APRILP (Asociacion pro rehabilitación infantil La Plata), y se usarán en juguetes, para chicos con discapacidad. Estos test, se documentarán para una proxima versión. Se aceptan sugerencias/modificación para realizar mejoras/upgrades del código. Los esquemáticos para cada circuito, estan en [aquí](esquemáticos.pdf, "esquemáticos del proyecto"). En este trabajo, se realiza la caja receptora y emisora del siguiente esquema: 
 <div>
     <img src="images/aprilpImage.jpeg"> 
 </div>
@@ -23,7 +23,8 @@ La institución, que probará y realizará los test correspondientes a software 
 5. Programador ESP01 o simil 
 6. Pilas AA (opcional,puede utilizarse cualquier otra fuente de  alimentación. En este proyecto, se utiliza este tipo de pilas). Se usan dos por dispositivo
 
-Este proyecto, puede realizarse con cualquier microcontrolador de la linea de esp8266/esp32, modificando los puertos correspondientes dentro del código. Se sugiere usar el ESP01, por su bajo coste en comparación con los demas 
+Este proyecto, puede realizarse con cualquier microcontrolador de la linea de esp8266/esp32, modificando los puertos correspondientes dentro del código. Se sugiere usar el ESP01, por su bajo coste en comparación con los demas.
+
 
 # Programación ESP01 
 
@@ -65,7 +66,7 @@ Los archivos [delay.html](delay.html) e [index.html](index.html), poseen la pág
 
 La página [index.html](index.html), solamente tiene un boton, que es capaz de activar los retardos, y redirige a [delay.html](delay.html). Esta, se conecta mediante webSockets con el servidor, y le envia información del retardo. 
 
-El archivo [sortedMACS.py](sortedMACS.py "lista ordenada de macs"), genera un archivo "macaddress.h" en la siguente ruta ServidorBotonAprilp/include/macaddress.h. Si no dispone de un interprete de python en su sistema, puede utilizar el archivo por defecto. El objetivo de este archivo, es ordenar todas las macs de espressif, de menor a mayor, para realizar busqueda dicotómica. 
+El archivo [sortedMACS.py](sortedMACS.py "lista ordenada de macs"), genera un archivo "macaddress.h" en la siguente ruta ServidorBotonAprilp/include/macaddress.h. Si no dispone de un interprete de python en su sistema, puede utilizar el archivo por defecto. El objetivo de este archivo, es ordenar todas las macs de espressif, de menor a mayor, para realizar busqueda dicotómica, dentro del código usado en el servidor.  
 
 
 
@@ -133,7 +134,7 @@ El archivo python ordena las MACS de menor a mayor, para luego realizar una busq
 ```
 ## Definición de estructuras de datos 
 
-El reconocimiento de las macs, requiere de 24 bits (3 bytes), denominadas OUI o vendoor. A partir de ellas, se reconoce el dispositivo. Se debe definir una estructura de datos, de 24bits. La definición de la estructura viene dada por: 
+El reconocimiento de las macs, requiere de 24 bits (3 bytes), denominadas OUI o vendoor. A partir de ellas, se reconoce el dispositivo. Se debe definir una estructura de datos, de 24bits. La definición de la estructura se da por: 
 ```C
     typedef struct 
     {
@@ -259,7 +260,7 @@ if (WiFi.status()==WL_CONNECTED)
 
 La libreria utilizada para la recepción del servidor es ESP8266WiFi.h. 
 
-Se ha definido una estructura de datos, para el manejo de el encendidom, y algunas variables del estilo flags. Estas estructuras y variables, se definen de la siguiente forma: 
+Se ha definido una estructura de datos, para el manejo de el encendido, y algunas variables del estilo flags. Estas estructuras y variables, se definen de la siguiente forma: 
 ```c++
 struct {
   bool isDelay ; 
@@ -293,9 +294,49 @@ La configuración de estos parámetros viene dada por las siguientes definicione
 ```
 
 
-El circuito del cliente es el siguiente, ya que deberá tener un optoacoplador, para poder cerrar el circuito remoto. El circuito, puede verse en [aquí](esquemáticos.pdf), es el circuito cliente
+El circuito del cliente es el siguiente puede verse [aquí](esquemáticos.pdf). Este circuito se ha simulado, y la corriente máxima admitida por la carga (circuito a encender), depende de como se halla realizado el corte del circuito internamente al juguete. Este depende de si se ha cortado en Vcc o en GND. En ambos casos, se realizó la simulación del circuito con una carga que oscila entre 0 y 10K. El circuito puede verse en la carpeta de simulación del presente proyecto. 
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0lax">circuito</th>
+    <th class="tg-0lax" colspan="3">circuito 1 </th>
+    <th class="tg-0lax" colspan="3">circuito 2</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0lax">vcc</td>
+    <td class="tg-0lax">vce</td>
+    <td class="tg-0lax">i</td>
+    <td class="tg-0lax">r</td>
+    <td class="tg-0lax">vce</td>
+    <td class="tg-0lax">i</td>
+    <td class="tg-0lax">r</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax"></td>
+  </tr>
+</tbody>
+</table>
+
 
 # Testing 
+
 Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquemático, y el servidor, se realiza con un pulsador tact switch. El testing, se realizó con un único cliente. Para programar los retados, se ha utilizado google chrome. En otros navegadores, suele fallar. 
 
 - [X] sin retraso
@@ -322,6 +363,11 @@ Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquem�
  - Edetec: Por presentarme el proyecto y permitir desarrollarlo 
  - [Aprilp]( www.sergioruau.com.ar " Asociación Pro Rehabilitación Infantil La Plata")  Por ser el destinatario, y quiénes impusieron los requerimientos, y quien va a realizar los test 
 
+[comment] <> esto es un comentario
+
+<!-- 
+Vcc 
 
 
 
+-->
