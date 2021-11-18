@@ -110,7 +110,7 @@ Archivo de configuración para el cliente
 ```
 # Servidor pulsador 
 
-El servidor pulsador, reconoce a los botones clientes, mediante sus direcciones MACS. En este proyecto, se supone que todas las MAC-ADRRESS, pertenecen a la compañia espressif. Para crear este archivo se utliza el archivo sortedMACS.py
+El servidor pulsador, reconoce a los clientes, mediante sus direcciones MACS. En este proyecto, se supone que todas las MAC-ADRRESS, pertenecen a la compañia espressif. Para crear este archivo se utliza el archivo sortedMACS.py
 
 ## Configuración de MACS ADDRESS de espressif 
 El archivo python ordena las MACS de menor a mayor, para luego realizar una busqueda rápida en el procesamiento de las macs address. Se utiliza python 3.9.6. Se ingresan las MAC ADDRESS dentro del archivo sortedMACS.py, dentro de una lista denominada macAddress.  Una lista completa puede obtenerse desde [aquí](https://maclookup.app/vendors/espressif-inc " lista de mac address de espressif"). Una vez ingresada, se utiliza el método sort, y se genera el archivo macaddress.h, en ServidorBotonAprilp/include/. El código del archivo sortedMACS.py 
@@ -158,7 +158,7 @@ Se ha realizado en módulos, con funciones distribuidas en tres archivos:
  - webPages.h 
  - WiFiFunctions.hpp 
 
-El archivo, webPages.h, contiene las páginas html, delay.html e index.html. El archivo WiFiFunctions tiene las siguientes funciones 
+El archivo, webPages.h, contiene las páginas html, delay.html e index.html. El archivo WiFiFunctions tiene las siguientes funciones:  
 
 |función     |retorno |descripción   | 
 |--------    | ------------|------------ | 
@@ -217,7 +217,7 @@ Se definen los siguientes encabezados, para definir diferentes configuraciones:
     }; 
     const uint24_t macsAddressEspressif[NUMBERS_MACS_ESPRESSIF]{ 
         // llenar con el archivo macaddress.h 
-    ]
+    }
 ```
 
 Luego dentro del código principal, debe realizarse la siguiente rutina, para detectar el pulsador, modificar el delay, y configuración del servidor web. El código es el siguiente: 
@@ -318,7 +318,7 @@ Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquem�
 
 
 # Agradecimientos
- - [Instituto Argentino de radioastronomía](https://www.iar.unlp.edu.ar/). Por prestarme los programadores CP2021, para llevar a cabo el proyecto. 
+
  - Edetec: Por presentarme el proyecto y permitir desarrollarlo 
  - [Aprilp]( www.sergioruau.com.ar " Asociación Pro Rehabilitación Infantil La Plata")  Por ser el destinatario, y quiénes impusieron los requerimientos, y quien va a realizar los test 
 
