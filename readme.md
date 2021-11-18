@@ -294,7 +294,7 @@ La configuración de estos parámetros viene dada por las siguientes definicione
 ```
 
 
-El circuito del cliente es el siguiente puede verse [aquí](esquemáticos.pdf). Este circuito se ha simulado, y la corriente máxima admitida por la carga (circuito a encender), depende de como se halla realizado el corte del circuito internamente al juguete. Este depende de si se ha cortado en Vcc o en GND. En ambos casos, se realizó la simulación del circuito con una carga que oscila entre 0 y 10K. El circuito puede verse en la carpeta de simulación del presente proyecto. 
+El circuito del cliente es el siguiente puede verse [aquí](esquemáticos.pdf). Este circuito se ha simulado, y la corriente máxima admitida por la carga (circuito a encender), depende de como se halla realizado el corte del circuito internamente al juguete. Este depende de si se ha cortado en Vcc o en GND. En ambos casos, se realizó la simulación del circuito con una carga que oscila entre 0 y 10K. La simulación se realizó con el programa LTSPICE. Los circuitos pueden verse en la carpeta de simulación del presente proyecto, y en la tabla que se muestra a continuación:  
 <table>
 <thead>
   <tr>
