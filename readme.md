@@ -388,16 +388,28 @@ El circuito del cliente es el siguiente puede verse [aquí](esquemáticos.pdf). 
    <td>0.118</td>	
    <td>28.81</td>  
    <td>10k</td>
+   <td>3</td>
+   <td>0.118</td>
+   <td>28.82</td>
+   <td>10k</td>
   </tr>
   <tr>
     <td>4</td>
     <td>0.127</td>	
     <td>38.72</td> 
     <td>10K</td>
+    <td>4</td>	
+    <td>0.129</td>
+    <td>38.71</td>
+    <td>10k</td>
   </tr>
   <tr>
     <td>5</td>
     <td>0.135</td>	
+    <td>48.64</td>
+    <td>10K</td>
+    <td>5</td>
+    <td>0.135</td>
     <td>48.64</td>
     <td>10K</td>
   </tr>
@@ -405,22 +417,39 @@ El circuito del cliente es el siguiente puede verse [aquí](esquemáticos.pdf). 
     <td>0.142</td>	
     <td>58.57</td> 
     <td>10K</td>
+    <td>6</td>
+    <td>0.142</td>
+    <td>58.57</td>
+    <td>10k<td>
   <tr>
     <td>7</td>
     <td>0.148</td>
     <td>68.51</td>
     <td>10K</td>
+    <td>7</td>
+    <td>0.148</td>
+    <td>68.51</td>
+    <td>10k</td>
   <tr>
     <td>8</td>
     <td>0.15</td>
     <td>78.45</td>
     <td>10K</td>
+    <td>8</td>
+    <td>0.154</td>
+    <td>78.45</td>
+    <td>10K<td>
   </tr>
   <tr>
     <td>9</td>
     <td>0.160</td>
     <td>88.39</td>
     <td>10K</td>
+    <td>9</td>	<
+    <td>0.160</td>	
+    <td>88.39</td>
+    <td>10K</td>
+
 </tr>
 
 
