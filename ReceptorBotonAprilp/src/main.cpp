@@ -13,9 +13,9 @@
 // mantiene los valores en memoria en base a los 
 //datos recibidos por el servidor  
 struct {
-  bool isDelay ; 
-  unsigned int delayTime ; 
-}register_delay ; 
+  bool isTimeON ; 
+  unsigned int timeON  ; 
+}register_on ; 
 
 unsigned long int t0 = 0 ; 
 unsigned long int tdelayOn = 0 ; 
@@ -54,7 +54,7 @@ void loop() {
        // permite una unica rutina 
       if (isOnToy == MODE_TOY_OFF){ 
         isDatareceived = true ; 
-        memcpy(&register_delay,&buffer_receive[1],size_buffer-2) ; 
+        memcpy(&register_on,&buffer_receive[1],size_buffer-2) ; 
       }
     }
   }
@@ -69,30 +69,25 @@ void loop() {
  if (isDatareceived==true)
  {
    isDatareceived = false ; 
-   if(register_delay.isDelay==false) {
-     isOnToy = FIRST_MODE_TOY_ON ; 
-     t0 = millis() ; 
-     digitalWrite(GPIO_ESP01_PORT,LOW) ; 
-   }else if(register_delay.isDelay==true){
-    isOnToy = SECOND_MODE_TOY_ON  ; 
-    tdelayOn = millis() ; 
+   if(register_on.isTimeON==false) {
+    // enciende el juguete sin control 
+    // consultar por timeout !  
+    digitalWrite(GPIO_ESP01_PORT,LOW)  ; 
+   }else if(register_on.isTimeON==true){
+      t0 = millis() ;  
    }   
  }
  
+ // tiempo para apagar el encendido 
+ if (register_on.isTimeON==true){
+   if (millis()-t0>=register_on.timeON){
+     register_on.isTimeON = false ; 
+     digitalWrite(GPIO_ESP01_PORT,HIGH) ; 
+   }
+ }
 
- // si el modo es FIRST_MODE_TOY_ON, entonces queda encendido durante 20 segundos 
- // si el modo es SECOND_MODE_TOY_ON, entonces, espera un tiempo preseteado, y luego 
- // cambia a FIRST_MODE_TOY, y enciende el juguete durante 20 segundos  
- if (millis()-t0>20000 && isOnToy == FIRST_MODE_TOY_ON  ) 
- {
-  digitalWrite(GPIO_ESP01_PORT,HIGH) ; 
-  isOnToy = MODE_TOY_OFF  ; 
- }else if (millis()-tdelayOn>= register_delay.delayTime*1000   &&     isOnToy ==  SECOND_MODE_TOY_ON  ){
-    //register_delay.delayTime*1000 es tiempo en milisegundos -- se comparan milisegundos 
-    isOnToy = FIRST_MODE_TOY_ON ; 
-    t0 = millis() ; 
-    digitalWrite(GPIO_ESP01_PORT,LOW) ; 
- }    
+
+
 
 }
 
