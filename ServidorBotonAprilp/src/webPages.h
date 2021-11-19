@@ -10,7 +10,9 @@ const char MAIN_PAGE[] = R"=====(
     </style>
 </head>
 <body onload="selectDelay();"> 
-    <button type="range"  onclick = "location.href = 'delay.html'" > rango delay</button>   
+    <button type="range"  onclick = "location.href = 'delay.html'" >
+        activar tiempo de encendido
+    </button>   
 </body>
 <script>
     function selectDelay(){
