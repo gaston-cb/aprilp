@@ -64,7 +64,7 @@ Aquí, se mencionan los archivos principales, y carpetas utilizadas para el desa
 ```
 Los archivos [delay.html](delay.html) e [index.html](index.html), poseen la página principal del servidor. Estos códigos se encuentran replicados en ServidorBotonAprilp/src/webPages. 
 
-La página [index.html](index.html), solamente tiene un boton, que es capaz de activar los retardos, y redirige a [delay.html](delay.html). Esta, se conecta mediante webSockets con el servidor, y le envia información del retardo. 
+La página [index.html](index.html), solamente tiene un boton, que es capaz de activar el tiempo de uso en segundos, cuando el juguete a encender, no posea ningún tiempo de parada, este tiempo se configura mediante el archivo [delay.html](delay.html). Esta página se conecta mediante webSockets con el servidor, y le envia información del retardo. 
 
 El archivo [sortedMACS.py](sortedMACS.py "lista ordenada de macs"), genera un archivo "macaddress.h" en la siguente ruta ServidorBotonAprilp/include/macaddress.h. Si no dispone de un interprete de python en su sistema, puede utilizar el archivo por defecto. El objetivo de este archivo, es ordenar todas las macs de espressif, de menor a mayor, para realizar busqueda dicotómica, dentro del código usado en el servidor.  
 
@@ -77,10 +77,12 @@ El archivo [sortedMACS.py](sortedMACS.py "lista ordenada de macs"), genera un ar
 | Python      | 3.9.6    |
 | vscode      | 1.60.2   |
 | Platformio  | 1.918.108|
+| LTSPICE     | 17.0.32.0|
 
 Para conocer su versión de python, debe ejecutar el siguiente comando, en la consola de su sistema: 
     
   `python --version`
+
 
 Si esta instalado, deberá verse la versión del mismo. Si usted no lo tiene instalado en su sistema, no podrá agregar lista de macs address ordenadas. Si usted desea usar este sistema, con otros tipos de chips que no sean de la compañia espressif, se recomienda su instalación. 
 
@@ -141,12 +143,12 @@ El reconocimiento de las macs, requiere de 24 bits (3 bytes), denominadas OUI o 
         unsigned int data: 24 ; 
     }   uint24_t ; 
 ```
-La definición, que almacena las IP, y el estado de los retaros, se define de la siguiente manera: 
+La definición, que almacena las IP, y el tiempo de encendido, se define de la siguiente manera: 
 ```cpp
     struct clientRegister
     {
-        bool isDelay ; 
-        unsigned int timeDelay ; 
+        bool isTimeON ; 
+        unsigned int timeON ; 
         uint8_t Ipclients[4][4] ;    // ip clients esp8266 --  
     }; 
 ```
@@ -172,7 +174,7 @@ El archivo main.cpp, contiene las siguientes funciones:
 |--------    | ------------|------------ | 
 |`mainPage()`|void| pagina web al conectarse por HTTP-  index.html| 
 |`configDelayClockClient()` |void| sirve la página delay.html en el servidor   |
-|`dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length) `|ninguno |usada para el manejo de webSockets, se obtienen los valores de retardo de forma casi instantanea|
+|`dataDelayWeb(uint8_t num, WStype_t type, uint8_t * payload, size_t length) `|ninguno |usada para el manejo de webSockets, se obtiene el tiempo de encendido|
 |`newConnectClient(WiFiEventSoftAPModeStationConnected sta_info) ` |void| ejecuta la función newConnectClient, al conectarse un cliente. Sin uso en la versión actual, se espera darle algún uso en futuras versiones. 
 |`obtainIPClients()`  |void|obtiene las IPs de los clientes del tipo espressif conectados| 
 |`isMacEspressif(uint24_t macsAdress)`  |int|busqueda binaria, si retorna 1, se encontro la mac dentro de los clientes, si retorna -1, no se encontro la mac| 
@@ -271,15 +273,12 @@ uint8_t  isOnToy = 0 ;
 Las variables cumplen las siguientes funciones: 
 |variable           |valor| descripción | 
 |------------------|-----|---------------| 
-|`register_delay.isDelay`|true | esta activado el retraso.  |
-|`register_delay.isDelay`|false |Esta desactivado el retraso|
-|`register_delay.delaytime`|unsigned int | si el retraso esta activado, esta variable indica la cantidad de segundos de retraso|
-|`isOnToy`| 0 | Apagado                        |
-|`isOnToy`| 1 | encendido sin retraso          |
-|`isOnToy`| 2 | encendido con retraso          | 
+|`register_delay.isDelay`|true | esta activado el tiempo de encendido.  |
+|`register_delay.isDelay`|false |Esta desactivado el tiempo de encendido|
+|`register_delay.delaytime`|unsigned int | si el tiempo de encendido esta activado, esta variable indica la cantidad de segundos de encendido|
 
 
-Una vez encendido, se le da una duración de 20 segundos. Estas variables, sirven para indicar el estado, y además, para evitar la sobrecarga al presionar el boton del servidor. 
+Una vez encendido, depende si la variable isDelay toma el valor verdadero o false. Estas variables, sirven para indicar el estado, y además, para evitar la sobrecarga al presionar el boton del servidor. 
 
 La configuración de estos parámetros viene dada por las siguientes definiciones de macro, en el archivo [main.cpp](ReceptorBotonAprilp\src\main.cpp "archivo cliente main")
 ```c++
@@ -458,9 +457,9 @@ El circuito del cliente es el siguiente puede verse [aquí](esquemáticos.pdf). 
 
 # Testing 
 
-Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquemático, y el servidor, se realiza con un pulsador tact switch. El testing, se realizó con un único cliente. Para programar los retados, se ha utilizado google chrome. En otros navegadores, suele fallar. 
+Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquemático, y el servidor, se realiza con un pulsador tact switch. El testing, se realizó con un único cliente. Para programar el tiempo de encendido, se ha activado o no. Los resultados de este test se muestra a continuación: 
 
-- [X] sin retraso
+- [X] sin retraso -- no se desactiva 
 - [X] retraso de 10 s 
 - [X] retraso de 40 s 
 - [X] retraso de 80 s 
