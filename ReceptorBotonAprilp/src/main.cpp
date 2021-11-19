@@ -42,7 +42,9 @@ void loop() {
  
  byte buffer_receive[size_buffer] ; 
  WiFiClient cliente = button_server.available() ;  
- 
+/*
+ * codigo de recepción TCP 
+*/ 
  if (WiFi.status()==WL_CONNECTED)
  {
   if(cliente)
@@ -61,11 +63,9 @@ void loop() {
  }else{
    ConnectAP() ; // si se desconecta -- vuelve a conectarse 
  }  
- 
- // seleccion de tiempo en base a datos recibidos por el servidor 
- // se realiza aparte, ya que recibe cuelgues del microprocesador
- // si se realiza dentro de la rutina de recepcion, se corren riesgos 
- // de colgado del microcontrolador  
+ // END RX TCP 
+
+
  if (isDatareceived==true)
  {
    isDatareceived = false ; 
@@ -74,13 +74,14 @@ void loop() {
     // consultar por timeout !  
     digitalWrite(GPIO_ESP01_PORT,LOW)  ; 
    }else if(register_on.isTimeON==true){
-      t0 = millis() ;  
+      digitalWrite(GPIO_ESP01_PORT,LOW)  ; 
+      t0 = millis()  ; 
    }   
  }
  
  // tiempo para apagar el encendido 
  if (register_on.isTimeON==true){
-   if (millis()-t0>=register_on.timeON){
+   if (millis()-t0>=(register_on.timeON)*1000){
      register_on.isTimeON = false ; 
      digitalWrite(GPIO_ESP01_PORT,HIGH) ; 
    }
