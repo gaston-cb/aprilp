@@ -460,12 +460,12 @@ El circuito del cliente es el siguiente puede verse [aquí](esquemáticos.pdf). 
 Se realiza el circuito testing, mostrado [aquí](esquemáticos.pdf) como esquemático, y el servidor, se realiza con un pulsador tact switch. El testing, se realizó con un único cliente. Para programar el tiempo de encendido, se ha activado o no. Los resultados de este test se muestra a continuación: 
 
 - [X] sin retraso -- no se desactiva 
-- [X] retraso de 10 s 
-- [X] retraso de 40 s 
-- [X] retraso de 80 s 
-- [X] retraso de 100 s 
-- [X] retraso de 150 s 
-- [X] retraso de 180 s 
+- [X] encendido de 10 s 
+- [X] encendido de 40 s 
+- [X] encendido de 80 s 
+- [X] encendido de 100 s 
+- [X] encendido de 150 s 
+- [X] encendido de 180 s 
 
 
 ## bugs 
